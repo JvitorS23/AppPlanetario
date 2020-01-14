@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Planetário</string>
+    <string name="tituloLogin">PLANETÁRIO</string>
+    <string name="txt_cadastrar">Cadastrar</string>
+    <string name="txt_login">login</string>
+    <string name="txt_senha">senha</string>
+    <string name="txt_usuario">usuário</string>
+    <string name="title_activity_act__cad__user">Cadastro</string>
+    <string name="title_activity_act__cad_user">Cadastro</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="title_activity_act__cad">Cadastro</string>
+
+
+    <string name="subTitLogin">Astros, Sistemas e Galáxias</string>
+
+
+
+    <string name="title_activity_act_cad">Cadastro</string>
+    <string name="title_activity_act__inicio">Act_Inicio</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Planetário</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+
+
+
+    <string name="action_settings">Configurações</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_add">Adicionar Astro</string>
+    <string name="menu_remover">Remover Astro</string>
+    <string name="menu_modificar">Modificar Astro</string>
+
+    <string name="txt_sobre">Sobre</string>
+    <string name="txt_sair">Sair</string>
+    <string name="consultar_astro">Consultar Astro</string>
+    <string name="listar_astros">Listar Astros</string>
+</resources>
