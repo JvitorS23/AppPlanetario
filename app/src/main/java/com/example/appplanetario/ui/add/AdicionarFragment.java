@@ -16,20 +16,16 @@ import com.example.appplanetario.R;
 
 public class AdicionarFragment extends Fragment {
 
-    private com.example.appplanetario.ui.add.AdicionarViewModel adicionarViewModel;
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
+    // desenha interface
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        adicionarViewModel =
-                ViewModelProviders.of(this).get(com.example.appplanetario.ui.add.AdicionarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_adicionar, container, false);
-        final TextView textView = root.findViewById(R.id.text_adicionar);
-        adicionarViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
+
+
 }

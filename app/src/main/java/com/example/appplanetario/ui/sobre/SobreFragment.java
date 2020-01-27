@@ -15,21 +15,17 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.appplanetario.R;
 
 public class SobreFragment extends Fragment {
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-    private SobreViewModel sobreViewModel;
-
+    // desenha interface
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        sobreViewModel =
-                ViewModelProviders.of(this).get(SobreViewModel.class);
         View root = inflater.inflate(R.layout.fragment_sobre, container, false);
-        final TextView textView = root.findViewById(R.id.text_sobre);
-        sobreViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
+
+
+
 }

@@ -1,6 +1,9 @@
 package com.example.appplanetario;
 
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -10,12 +13,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class Act_Inicio extends AppCompatActivity {
+import static com.example.appplanetario.R.layout.nav_header_act__inicio;
 
+public class Act_Inicio extends AppCompatActivity {
+    public TextView user;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_inicio);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -42,4 +48,6 @@ public class Act_Inicio extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }

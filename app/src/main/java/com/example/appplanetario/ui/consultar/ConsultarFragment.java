@@ -1,36 +1,114 @@
 package com.example.appplanetario.ui.consultar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentActivity;
 
+import com.example.appplanetario.ActLogin;
+import com.example.appplanetario.Act_Consulta;
+import com.example.appplanetario.Act_Inicio;
 import com.example.appplanetario.R;
-import com.example.appplanetario.ui.consultar.ConsultarViewModel;
 
 public class ConsultarFragment extends Fragment {
+    private Button btnPlaneta;
+    private Button btnSistema;
+    private Button btnGalaxia;
+    private Button btnSatelite;
+    private Button btnEstrela;
 
-    private ConsultarViewModel consultarViewModel;
 
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+
+    }
+
+    // desenha interface
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        consultarViewModel =
-                ViewModelProviders.of(this).get(ConsultarViewModel.class);
         View root = inflater.inflate(R.layout.fragment_consultar, container, false);
-        final TextView textView = root.findViewById(R.id.text_consultar);
-        consultarViewModel.getText().observe(this, new Observer<String>() {
+
+
+
+        btnPlaneta = root.findViewById(R.id.btn_planeta);
+        btnPlaneta.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, Act_Consulta.class);
+                    it.putExtra("tipo", "Planeta");
+                    startActivity(it);
+                }
             }
         });
+
+        btnSistema = root.findViewById(R.id.btn_sistema);
+        btnSistema.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, Act_Consulta.class);
+                    it.putExtra("tipo", "Sistema Planetário");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnGalaxia = root.findViewById(R.id.btn_galaxia);
+        btnGalaxia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, Act_Consulta.class);
+                    it.putExtra("tipo", "Galáxia");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnSatelite = root.findViewById(R.id.btn_satelite);
+        btnSatelite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, Act_Consulta.class);
+                    it.putExtra("tipo", "Satélite Natural");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnEstrela = root.findViewById(R.id.btn_estrela);
+        btnEstrela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, Act_Consulta.class);
+                    it.putExtra("tipo", "Estrela");
+                    startActivity(it);
+                }
+            }
+        });
+
         return root;
     }
 }

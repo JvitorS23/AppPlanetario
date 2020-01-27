@@ -40,6 +40,7 @@ public class ActLogin extends AppCompatActivity {
     public void clickBtnLogin(View view) {
         int i = validaCampos();
         if(i==0) {
+
             Intent it = new Intent(ActLogin.this, Act_Inicio.class);
             startActivity(it);
             finish();

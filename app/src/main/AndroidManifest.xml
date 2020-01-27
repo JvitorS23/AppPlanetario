@@ -10,14 +10,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ActModificarPlaneta"
+            android:label="@string/title_activity_act_modificar_planeta"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ActListar"
+            android:label="@string/title_activity_act_listar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Act_Modificar"
+            android:label="Modificar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActPlaneta"
+            android:label="@string/title_activity_act_planeta"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Act_Consulta"
+            android:label="@string/title_activity_act__consulta"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Act_Inicio"
             android:label="@string/title_activity_act__inicio"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActCad"
             android:label="@string/title_activity_act_cad"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ActLogin">
+        <activity
+            android:name=".ActLogin"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,7 +14,6 @@
     <string name="subTitLogin">Astros, Sistemas e Galáxias</string>
 
 
-
     <string name="title_activity_act_cad">Cadastro</string>
     <string name="title_activity_act__inicio">Act_Inicio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -24,13 +23,11 @@
     <string name="nav_header_desc">Navigation header</string>
 
 
-
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-
 
 
     <string name="action_settings">Configurações</string>
@@ -44,4 +41,22 @@
     <string name="txt_sair">Sair</string>
     <string name="consultar_astro">Consultar Astro</string>
     <string name="listar_astros">Listar Astros</string>
+    <string name="escolha">Escolha a entidade</string>
+    <string name="planeta">Planeta</string>
+    <string name="sistema_planet">Sistema Planetário</string>
+    <string name="galaxia">Galáxia</string>
+    <string name="satelite_natural">Satélite Natural</string>
+    <string name="estrela">Estrela</string>
+    <string name="versao">Versão: 1.0</string>
+    <string name="desenvolvido">Desenvolvido por:</string>
+    <string name="filipe_jose">Filipe Nascimento e José Vitor</string>
+    <string name="title_activity_act__consulta">Consulta %1$s</string>
+    <string name="consultar">Consultar</string>
+    <string name="title_activity_act__planeta">Act_Planeta</string>
+    <string name="title_activity_act_planeta">ActPlaneta</string>
+    <string name="title_activity_act_listar">ActListar</string>
+    <string name="modificar">Modificar</string>
+    <string name="title_activity_act_modificar_planeta">ActModificarPlaneta</string>
+
+
 </resources>
