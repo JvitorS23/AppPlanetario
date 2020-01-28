@@ -25,6 +25,7 @@ public class Act_Modificar extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
         tipo = "Entidade";
         tipo = (String) getIntent().getSerializableExtra("tipo");
+        System.out.println(tipo);
         toolbar.setTitle("Modificar " + tipo);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -38,22 +39,24 @@ public class Act_Modificar extends AppCompatActivity {
         txtID.setText("ID "+tipo);
 
     }
-    public void clickBtnModificar(View view){
+    public void botaoModificar(View view){
+
+        System.out.println("JOSE");
         if(tipo.equals("Planeta") && edtId.getText().toString().trim().length()>0){
-        //Procurar planeta no banco
-        Intent it = new Intent(Act_Modificar.this, ActModificarPlaneta.class);
-        //Se encontrar instanciar planeta e passar para a activity modificar planeta
-        ArrayList<String> composicao = new ArrayList();
-        composicao.add("Carbono");
-        composicao.add("Hidrogênio");
-        Planeta planeta = new Planeta(Integer.parseInt(edtId.getText().toString()), "Terra",
-                1000.0f, 50.0f, 9.8f, composicao );
-        it.putExtra("planeta", planeta);
-        startActivity(it);
+            //Procurar planeta no banco
+            Intent it = new Intent(Act_Modificar.this, ActModificarPlaneta.class);
+            //Se encontrar instanciar planeta e passar para a activity modificar planeta
+            ArrayList<String> composicao = new ArrayList();
+            composicao.add("Carbono");
+            composicao.add("Hidrogênio");
+            Planeta planeta = new Planeta(Integer.parseInt(edtId.getText().toString()), "Terra",
+                    1000.0f, 50.0f, 9.8f, composicao );
+            it.putExtra("planeta", planeta);
+            System.out.println(planeta.nome);
+            startActivity(it);
 
         }
     }
-
 
 
 }

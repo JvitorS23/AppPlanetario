@@ -9,8 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.TextView;
 
 public class ActModificarPlaneta extends AppCompatActivity {
+    private TextView txtID;
+    private TextView txtNome;
+    private Planeta planeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,14 @@ public class ActModificarPlaneta extends AppCompatActivity {
                 finish();
             }
         });
+        txtID = findViewById(R.id.txt_id);
+        txtNome = findViewById(R.id.txt_nome);
+
+        planeta = (Planeta) getIntent().getSerializableExtra("planeta");
+
+
+        txtID.setText("ID: "+String.valueOf(planeta.getId()));
+        txtNome.setText("Nome: "+planeta.getNome());
 
 
 
