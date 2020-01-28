@@ -1,4 +1,5 @@
 package com.example.appplanetario;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class Planeta extends Entidade implements Serializable {
         this.composicao = comp_planeta;
 
     }
+
 
     public float getTamanho() {
         return tamanho;
@@ -54,4 +56,8 @@ public class Planeta extends Entidade implements Serializable {
     public void setComposicao(ArrayList<String> composicao) {
         this.composicao = composicao;
     }
+
+
+
+
 }

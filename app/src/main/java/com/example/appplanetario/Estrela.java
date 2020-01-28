@@ -1,8 +1,6 @@
 package com.example.appplanetario;
 
-import java.io.Serializable;
-
-public class Estrela extends Entidade implements Serializable {
+public class Estrela extends Entidade  {
 
     public int idade;
     public float dist_terra;

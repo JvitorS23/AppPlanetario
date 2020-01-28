@@ -41,7 +41,7 @@ public class Act_Modificar extends AppCompatActivity {
     }
     public void botaoModificar(View view){
 
-        System.out.println("JOSE");
+
         if(tipo.equals("Planeta") && edtId.getText().toString().trim().length()>0){
             //Procurar planeta no banco
             Intent it = new Intent(Act_Modificar.this, ActModificarPlaneta.class);
@@ -52,8 +52,11 @@ public class Act_Modificar extends AppCompatActivity {
             Planeta planeta = new Planeta(Integer.parseInt(edtId.getText().toString()), "Terra",
                     1000.0f, 50.0f, 9.8f, composicao );
             it.putExtra("planeta", planeta);
-            System.out.println(planeta.nome);
+
             startActivity(it);
+
+
+
 
         }
     }

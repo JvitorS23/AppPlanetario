@@ -53,11 +53,9 @@ public class ActPlaneta extends AppCompatActivity {
         txtGravidade.setText("Gravidade: "+String.valueOf(planeta.getGravidade()));
         String compos = "";
         for(int i=0; i<planeta.composicao.size(); i++){
-            compos = compos +"\n"+ planeta.composicao.get(i);
+            compos = compos + " "+planeta.composicao.get(i);
         }
-        txtComposicao.setText("Composição: "+compos);
-
+        txtComposicao.setText("Composição:"+compos);
 
     }
-
 }

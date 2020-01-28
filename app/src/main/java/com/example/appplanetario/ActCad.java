@@ -1,5 +1,7 @@
 package com.example.appplanetario;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,7 +60,13 @@ public class ActCad extends AppCompatActivity {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Parabéns!");
             dlg.setMessage("Cadastro Realizado");
-            dlg.setNeutralButton("OK", null);
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActCad.this, ActLogin.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
 //
             dlg.show();
 

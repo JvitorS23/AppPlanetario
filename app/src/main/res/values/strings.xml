@@ -57,6 +57,9 @@
     <string name="title_activity_act_listar">ActListar</string>
     <string name="modificar">Modificar</string>
     <string name="title_activity_act_modificar_planeta">ActModificarPlaneta</string>
+    <string name="title_activity_act_adicionar">Adicionar Planeta</string>
+    <string name="title_activity_act_remover">ActRemover</string>
+    <string name="remover">Remover</string>
 
 
 </resources>
