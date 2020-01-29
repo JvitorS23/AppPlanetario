@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout6"
+    android:id="@+id/coordinatorLayout9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActAdicionarPlaneta">
+    tools:context=".ActAdicionarSistema">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
-                android:inputType="textPersonName"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
@@ -42,60 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtNome" />
-
-    <EditText
-        android:id="@+id/edtTamanho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtID" />
-
-    <EditText
-        android:id="@+id/edtMassa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTamanho" />
-
-    <EditText
-        android:id="@+id/edtGravidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMassa" />
-
-    <EditText
-        android:id="@+id/edtComposicao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtGravidade" />
-
 
     <TextView
         android:id="@+id/lbl_nome"
@@ -113,56 +63,73 @@
         app:layout_constraintBottom_toTopOf="@+id/edtID"
         app:layout_constraintStart_toStartOf="@+id/edtID" />
 
-    <TextView
-        android:id="@+id/lbl_tamanho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tamanho"
-        app:layout_constraintBottom_toTopOf="@+id/edtTamanho"
-        app:layout_constraintStart_toStartOf="@+id/edtTamanho" />
-
-    <TextView
-        android:id="@+id/lbl_massa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Massa"
-        app:layout_constraintBottom_toTopOf="@+id/edtMassa"
-        app:layout_constraintStart_toStartOf="@+id/edtMassa" />
-
-    <TextView
-        android:id="@+id/lbl_gravidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gravidade"
-        app:layout_constraintBottom_toTopOf="@+id/edtGravidade"
-        app:layout_constraintStart_toStartOf="@+id/edtGravidade" />
-
-    <TextView
-        android:id="@+id/lbl_comp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Composição"
-        app:layout_constraintBottom_toTopOf="@+id/edtComposicao"
-        app:layout_constraintStart_toStartOf="@+id/edtComposicao" />
-
-    <Button
-        android:id="@+id/btn_add"
+    <EditText
+        android:id="@+id/edt_qtde_planetas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="clickBtnAdicionarPlaneta"
-        android:text="Adicionar"
+        android:ems="10"
+        android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtComposicao" />
+        app:layout_constraintTop_toBottomOf="@+id/edtID" />
 
-    <TextView
-        android:id="@+id/lbl_composicao"
+    <EditText
+        android:id="@+id/edt_qtde_estrelas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Composição"
-        app:layout_constraintBottom_toTopOf="@+id/edtComposicao"
-        app:layout_constraintStart_toStartOf="@+id/edtComposicao" />
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_qtde_planetas" />
+
+    <EditText
+        android:id="@+id/edt_idade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_qtde_estrelas" />
+
+    <TextView
+        android:id="@+id/lbl_qtde_planetas"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:text="Quantidade de Planetas"
+        app:layout_constraintBottom_toTopOf="@+id/edt_qtde_planetas"
+        app:layout_constraintStart_toStartOf="@+id/edt_qtde_planetas" />
+
+    <TextView
+        android:id="@+id/lbl_qtde_estrelas"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:text="Quantidade de Estrelas"
+        app:layout_constraintBottom_toTopOf="@+id/edt_qtde_estrelas"
+        app:layout_constraintStart_toStartOf="@+id/edt_qtde_estrelas" />
+
+    <TextView
+        android:id="@+id/lbl_idade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idade do Sistema"
+        app:layout_constraintBottom_toTopOf="@+id/edt_idade"
+        app:layout_constraintStart_toStartOf="@+id/edt_idade" />
+
+    <Button
+        android:id="@+id/btn_adicionar_sistema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="clickBtnAdicionarSistema"
+        android:text="@string/adicionar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_idade" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

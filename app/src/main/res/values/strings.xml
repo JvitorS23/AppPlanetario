@@ -60,6 +60,11 @@
     <string name="title_activity_act_adicionar">Adicionar Planeta</string>
     <string name="title_activity_act_remover">ActRemover</string>
     <string name="remover">Remover</string>
+    <string name="title_activity_act_adicionar_galaxia">ActAdicionarGalaxia</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="title_activity_act_adicionar_sistema">ActAdicionarSistema</string>
+    <string name="title_activity_act_adicionar_satelite">ActAdicionarSatelite</string>
+    <string name="title_activity_act_adicionar_estrela">ActAdicionarEstrela</string>
 
 
 </resources>

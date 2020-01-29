@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout5"
+    android:id="@+id/coordinatorLayout10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActModificarPlaneta">
+    tools:context=".ActAdicionarSatelite">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -25,37 +25,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/txt_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Nome:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
-
-    <TextView
-        android:id="@+id/txt_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="ID:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
-
     <EditText
         android:id="@+id/edtNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
 
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_id" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <EditText
         android:id="@+id/edtID"
@@ -69,53 +49,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtNome" />
 
-    <EditText
-        android:id="@+id/edtTamanho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtID" />
-
-    <EditText
-        android:id="@+id/edtMassa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTamanho" />
-
-    <EditText
-        android:id="@+id/edtGravidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMassa" />
-
-    <EditText
-        android:id="@+id/edtComposicao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtGravidade" />
 
 
     <TextView
@@ -134,6 +67,43 @@
         app:layout_constraintBottom_toTopOf="@+id/edtID"
         app:layout_constraintStart_toStartOf="@+id/edtID" />
 
+
+    <EditText
+        android:id="@+id/edtTamanho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtID" />
+
+    <EditText
+        android:id="@+id/edtMassa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTamanho" />
+
+
+
+    <EditText
+        android:id="@+id/edtComposicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtMassa" />
+
     <TextView
         android:id="@+id/lbl_tamanho"
         android:layout_width="wrap_content"
@@ -150,29 +120,13 @@
         app:layout_constraintBottom_toTopOf="@+id/edtMassa"
         app:layout_constraintStart_toStartOf="@+id/edtMassa" />
 
-    <TextView
-        android:id="@+id/lbl_gravidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gravidade"
-        app:layout_constraintBottom_toTopOf="@+id/edtGravidade"
-        app:layout_constraintStart_toStartOf="@+id/edtGravidade" />
-
-    <TextView
-        android:id="@+id/lbl_comp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Composição"
-        app:layout_constraintBottom_toTopOf="@+id/edtComposicao"
-        app:layout_constraintStart_toStartOf="@+id/edtComposicao" />
-
     <Button
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:onClick="clickBtnModificarPlaneta"
-        android:text="@string/modificar"
+        android:onClick="clickBtnAdicionarSatelite"
+        android:text="Adicionar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtComposicao" />
@@ -184,6 +138,7 @@
         android:text="Composição"
         app:layout_constraintBottom_toTopOf="@+id/edtComposicao"
         app:layout_constraintStart_toStartOf="@+id/edtComposicao" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

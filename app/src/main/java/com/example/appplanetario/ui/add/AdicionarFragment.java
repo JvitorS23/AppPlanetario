@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.appplanetario.ActAdicionarEstrela;
+import com.example.appplanetario.ActAdicionarGalaxia;
 import com.example.appplanetario.ActAdicionarPlaneta;
+import com.example.appplanetario.ActAdicionarSatelite;
+import com.example.appplanetario.ActAdicionarSistema;
 import com.example.appplanetario.R;
 
 public class AdicionarFragment extends Fragment {
@@ -44,61 +48,61 @@ public class AdicionarFragment extends Fragment {
             }
         });
 
-//        btnSistema = root.findViewById(R.id.btn_sistema);
-//        btnSistema.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentActivity act = getActivity();
-//
-//                if (act != null) {
-//                    Intent it = new Intent(act, ActAdicionarPlaneta.class);
-//                    it.putExtra("tipo", "Sistema Planetário");
-//                    startActivity(it);
-//                }
-//            }
-//        });
-//
-//        btnGalaxia = root.findViewById(R.id.btn_galaxia);
-//        btnGalaxia.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentActivity act = getActivity();
-//
-//                if (act != null) {
-//                    Intent it = new Intent(act, ActAdicionarPlaneta.class);
-//                    it.putExtra("tipo", "Galáxia");
-//                    startActivity(it);
-//                }
-//            }
-//        });
-//
-//        btnSatelite = root.findViewById(R.id.btn_satelite);
-//        btnSatelite.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentActivity act = getActivity();
-//
-//                if (act != null) {
-//                    Intent it = new Intent(act, ActAdicionarPlaneta.class);
-//                    it.putExtra("tipo", "Satélite Natural");
-//                    startActivity(it);
-//                }
-//            }
-//        });
-//
-//        btnEstrela = root.findViewById(R.id.btn_estrela);
-//        btnEstrela.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentActivity act = getActivity();
-//
-//                if (act != null) {
-//                    Intent it = new Intent(act, ActAdicionarPlaneta.class);
-//                    it.putExtra("tipo", "Estrela");
-//                    startActivity(it);
-//                }
-//            }
-//        });
+        btnSistema = root.findViewById(R.id.btn_sistema);
+        btnSistema.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActAdicionarSistema.class);
+                    it.putExtra("tipo", "Sistema Planetário");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnGalaxia = root.findViewById(R.id.btn_galaxia);
+        btnGalaxia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActAdicionarGalaxia.class);
+                    it.putExtra("tipo", "Galáxia");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnSatelite = root.findViewById(R.id.btn_satelite);
+        btnSatelite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActAdicionarSatelite.class);
+                    it.putExtra("tipo", "Satélite Natural");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnEstrela = root.findViewById(R.id.btn_estrela);
+        btnEstrela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActAdicionarEstrela.class);
+                    it.putExtra("tipo", "Estrela");
+                    startActivity(it);
+                }
+            }
+        });
 
         return root;
     }

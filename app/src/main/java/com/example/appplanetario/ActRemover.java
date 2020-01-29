@@ -1,5 +1,6 @@
 package com.example.appplanetario;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ActRemover extends AppCompatActivity {
 
@@ -41,29 +45,148 @@ public class ActRemover extends AppCompatActivity {
         edtId = findViewById(R.id.edt_id);
         txtID.setText("ID "+tipo);
 
-
     }
 
     public void clickBtnRemover(View view){
-        //buscar astro no banco
-
-
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtId.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        boolean achou = true;
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-        dlg.setMessage(tipo + " Removido");
-        if(tipo.equals("Estrela")){
-            dlg.setMessage(tipo + " Removida");
+
+        switch (tipo) {
+            case "Planeta":
+                //consultar id na tabela planeta
+
+                //achou = consultaBanco();
+                if(achou){
+                    dlg.setMessage("Tem certeza que deseja remover "+tipo + " ID: " + edtId.getText().toString());
+                    dlg.setNegativeButton("Cancelar", null);
+                    dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which){
+                            boolean removeu = true;
+                            //removeu = removerPlaneta(id);
+                            if(removeu){
+                                Toast.makeText(getApplicationContext(), tipo+" removido!", Toast.LENGTH_LONG).show();
+                                edtId.clearFocus();
+                                edtId.setText(null);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    dlg.show();
+                }else{
+                    dlg.setMessage(tipo + " não encontrado!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
+                }
+                break;
+
+            case "Galáxia":
+                //consultar id na tabela galáxia
+                //achou = consultaBanco();
+                if(achou){
+                    dlg.setMessage("Tem certeza que deseja remover "+tipo + " ID: " + edtId.getText().toString());
+                    dlg.setNegativeButton("Cancelar", null);
+                    dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which){
+                            boolean removeu = true;
+                            //removeu = removerPlaneta(id);
+                            if(removeu){
+                                Toast.makeText(getApplicationContext(), tipo+" removida!", Toast.LENGTH_LONG).show();
+                                edtId.clearFocus();
+                                edtId.setText(null);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    dlg.show();
+                }else{
+                    dlg.setMessage(tipo + " não encontrada!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
+                }
+                break;
+            case "Estrela":
+                //consultar id na tabela Estrela
+                                //achou = consultaBanco();
+                if(achou){
+                    dlg.setMessage("Tem certeza que deseja remover "+tipo + " ID: " + edtId.getText().toString());
+                    dlg.setNegativeButton("Cancelar ", null);
+                    dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which){
+                            boolean removeu = true;
+                            //removeu = removerPlaneta(id);
+                            if(removeu){
+                                Toast.makeText(getApplicationContext(), tipo+" removida!", Toast.LENGTH_LONG).show();
+                                edtId.clearFocus();
+                                edtId.setText(null);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    dlg.show();
+                }else{
+                    dlg.setMessage(tipo + " não encontrada!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
+                }
+                break;
+            case "Sistema Planetário":
+                //consultar id na tabela Sistema Planetário
+
+                //achou = consultaBanco();
+                if(achou){
+                    dlg.setMessage("Tem certeza que deseja remover " + tipo + " ID: " + edtId.getText().toString());
+                    dlg.setNegativeButton("Cancelar", null);
+                    dlg.setPositiveButton("Remover ", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which){
+                            boolean removeu = true;
+                            //removeu = removerPlaneta(id);
+                            if(removeu){
+                                Toast.makeText(getApplicationContext(), tipo+" removido!", Toast.LENGTH_LONG).show();
+                                edtId.clearFocus();
+                                edtId.setText(null);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    dlg.show();
+                }else{
+                    dlg.setMessage(tipo + " não encontrado!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
+                }
+
+                break;
+            case "Satélite Natural":
+                //consultar id na tabela Satélite natural
+                //achou = consultaBanco();
+                if(achou){
+                    dlg.setMessage("Tem certeza que deseja remover "+tipo + " ID: " + edtId.getText().toString());
+                    dlg.setNegativeButton("Cancelar ", null);
+                    dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which){
+                            boolean removeu = true;
+                            //removeu = removerPlaneta(id);
+                            if(removeu){
+                                Toast.makeText(getApplicationContext(), tipo+" removido!", Toast.LENGTH_LONG).show();
+                                edtId.clearFocus();
+                                edtId.setText(null);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    dlg.show();
+                }else{
+                    dlg.setMessage(tipo + " não encontrado!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
+                }
+                break;
         }
-        dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent it = new Intent(ActRemover.this, Act_Inicio.class);
-                startActivity(it);
-                finish();
-            }
-        });
-        dlg.show();
-
-
     }
-
-
 }
