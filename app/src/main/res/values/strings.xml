@@ -65,6 +65,10 @@
     <string name="title_activity_act_adicionar_sistema">ActAdicionarSistema</string>
     <string name="title_activity_act_adicionar_satelite">ActAdicionarSatelite</string>
     <string name="title_activity_act_adicionar_estrela">ActAdicionarEstrela</string>
+    <string name="title_activity_act_estrela">ActEstrela</string>
+    <string name="title_activity_act_galaxia">ActGalaxia</string>
+    <string name="title_activity_act_sistema">ActSistema</string>
+    <string name="title_activity_act_satelite">ActSatelite</string>
 
 
 </resources>

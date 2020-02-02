@@ -10,14 +10,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ActSatelite"
+            android:label="@string/title_activity_act_satelite"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ActSistema"
+            android:label="@string/title_activity_act_sistema"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActGalaxia"
+            android:label="@string/title_activity_act_galaxia"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActEstrela"
+            android:label="@string/title_activity_act_estrela"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ActAdicionarEstrela"
             android:label="@string/title_activity_act_adicionar_estrela"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActAdicionarSatelite"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_act_adicionar_satelite"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActAdicionarSistema"

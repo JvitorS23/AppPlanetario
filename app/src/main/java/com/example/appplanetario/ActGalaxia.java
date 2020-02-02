@@ -1,6 +1,5 @@
 package com.example.appplanetario;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,33 +12,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActPlaneta extends AppCompatActivity {
+public class ActGalaxia extends AppCompatActivity {
     private TextView txtID;
     private TextView txtNome;
-    private TextView txtMassa;
-    private TextView txtTamanho;
-    private TextView txtGravidade;
-    private TextView txtComposicao;
-    private String operacao;
+    private TextView txtQtdeSistemas;
+    private TextView txtDistTerra;
     private Button btn;
-    private Planeta planeta;
-
+    private String operacao;
+    private Galaxia galaxia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.act_planeta);
+        setContentView(R.layout.act_galaxia);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
         operacao = "Operação";
         operacao = (String) getIntent().getSerializableExtra("operacao");
-        toolbar.setTitle("Planeta");
+        toolbar.setTitle("Galáxia");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,37 +41,24 @@ public class ActPlaneta extends AppCompatActivity {
                 finish();
             }
         });
-
+        btn = findViewById(R.id.btn_remover);
         txtID = findViewById(R.id.txt_id);
         txtNome = findViewById(R.id.txt_nome);
-        txtTamanho = findViewById(R.id.txt_tamanho);
-        txtMassa = findViewById(R.id.txt_massa);
-        txtGravidade = findViewById(R.id.txt_gravidade);
-        txtComposicao = findViewById(R.id.txt_comp);
-        btn = findViewById(R.id.btn_remover);
+        txtQtdeSistemas = findViewById(R.id.txt_qtde_sistemas);
+        txtDistTerra = findViewById(R.id.txt_dist_terra);
+        galaxia = (Galaxia) getIntent().getSerializableExtra("galaxia");
 
-        planeta = (Planeta) getIntent().getSerializableExtra("planeta");
-
-        txtID.setText("ID: "+String.valueOf(planeta.getId()));
-        txtNome.setText("Nome: "+planeta.getNome());
-        txtMassa.setText("Massa: "+String.valueOf(planeta.getMassa()));
-        txtTamanho.setText("Tamanho: "+String.valueOf(planeta.getTamanho()));
-        txtGravidade.setText("Gravidade: "+String.valueOf(planeta.getGravidade()));
-
-        String compos = "";
-        for(int i=0; i<planeta.composicao.size(); i++){
-            compos = compos + " "+planeta.composicao.get(i);
-        }
-        txtComposicao.setText("Composição:"+compos);
+        txtID.setText("ID: "+galaxia.getId());
+        txtNome.setText("Nome: "+galaxia.getNome());
+        txtQtdeSistemas.setText("Quantidade de Sistemas: "+galaxia.getQtd_sistemas());
+        txtDistTerra.setText("Distância da Terra: "+galaxia.getDist_terra());
 
         if(operacao.equals("Consultar")){
             btn.setVisibility(View.INVISIBLE);
-
         }
 
         if(operacao.equals("Remover")){
-           btn.setVisibility(View.VISIBLE);
-
+            btn.setVisibility(View.VISIBLE);
         }
 
     }
@@ -92,8 +73,8 @@ public class ActPlaneta extends AppCompatActivity {
                 boolean removeu = true;
                 //removeu = removerPlaneta(id); remove o planeta do banco
                 if(removeu){
-                    Toast.makeText(getApplicationContext(), "Planeta removido!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActPlaneta.this, Act_Inicio.class);
+                    Toast.makeText(getApplicationContext(), "Estrela removida!", Toast.LENGTH_LONG).show();
+                    Intent it = new Intent(ActGalaxia.this, Act_Inicio.class);
                     startActivity(it);
                     finish();
                 }else{
@@ -103,4 +84,6 @@ public class ActPlaneta extends AppCompatActivity {
         });
         dlg.show();
     }
+
+
 }

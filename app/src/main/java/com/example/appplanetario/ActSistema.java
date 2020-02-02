@@ -1,45 +1,37 @@
 package com.example.appplanetario;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActPlaneta extends AppCompatActivity {
+public class ActSistema extends AppCompatActivity {
+
     private TextView txtID;
     private TextView txtNome;
-    private TextView txtMassa;
-    private TextView txtTamanho;
-    private TextView txtGravidade;
-    private TextView txtComposicao;
-    private String operacao;
+    private TextView txtQtdePlanetas;
+    private TextView txtQtdeEstrelas;
+    private TextView txtIdade;
     private Button btn;
-    private Planeta planeta;
-
+    private String operacao;
+    private SistemaPlanetario sistema;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.act_planeta);
+        setContentView(R.layout.act_sistema);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
         operacao = "Operação";
         operacao = (String) getIntent().getSerializableExtra("operacao");
-        toolbar.setTitle("Planeta");
+        toolbar.setTitle("Sistema Planetário");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,36 +42,27 @@ public class ActPlaneta extends AppCompatActivity {
 
         txtID = findViewById(R.id.txt_id);
         txtNome = findViewById(R.id.txt_nome);
-        txtTamanho = findViewById(R.id.txt_tamanho);
-        txtMassa = findViewById(R.id.txt_massa);
-        txtGravidade = findViewById(R.id.txt_gravidade);
-        txtComposicao = findViewById(R.id.txt_comp);
+        txtQtdePlanetas = findViewById(R.id.txt_qtde_planetas);
+        txtQtdeEstrelas = findViewById(R.id.txt_qtde_estrelas);
+        txtIdade = findViewById(R.id.txt_idade);
         btn = findViewById(R.id.btn_remover);
 
-        planeta = (Planeta) getIntent().getSerializableExtra("planeta");
+        sistema = (SistemaPlanetario) getIntent().getSerializableExtra("sistema");
 
-        txtID.setText("ID: "+String.valueOf(planeta.getId()));
-        txtNome.setText("Nome: "+planeta.getNome());
-        txtMassa.setText("Massa: "+String.valueOf(planeta.getMassa()));
-        txtTamanho.setText("Tamanho: "+String.valueOf(planeta.getTamanho()));
-        txtGravidade.setText("Gravidade: "+String.valueOf(planeta.getGravidade()));
-
-        String compos = "";
-        for(int i=0; i<planeta.composicao.size(); i++){
-            compos = compos + " "+planeta.composicao.get(i);
-        }
-        txtComposicao.setText("Composição:"+compos);
+        txtID.setText("ID: "+sistema.getId());
+        txtNome.setText("Nome: "+sistema.getNome()+"");
+        txtQtdePlanetas.setText("Quantidade de Planetas: " +sistema.getQtde_planetas());
+        txtQtdeEstrelas.setText("Quantidade de estrelas: "+sistema.getQtde_estrelas());
+        txtIdade.setText("Idade: "+sistema.getIdade());
 
         if(operacao.equals("Consultar")){
             btn.setVisibility(View.INVISIBLE);
 
         }
-
         if(operacao.equals("Remover")){
-           btn.setVisibility(View.VISIBLE);
+            btn.setVisibility(View.VISIBLE);
 
         }
-
     }
 
     public void clickBtnRemover(View view){
@@ -92,8 +75,8 @@ public class ActPlaneta extends AppCompatActivity {
                 boolean removeu = true;
                 //removeu = removerPlaneta(id); remove o planeta do banco
                 if(removeu){
-                    Toast.makeText(getApplicationContext(), "Planeta removido!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActPlaneta.this, Act_Inicio.class);
+                    Toast.makeText(getApplicationContext(), "Sistema Planetário removido!", Toast.LENGTH_LONG).show();
+                    Intent it = new Intent(ActSistema.this, Act_Inicio.class);
                     startActivity(it);
                     finish();
                 }else{
@@ -103,4 +86,5 @@ public class ActPlaneta extends AppCompatActivity {
         });
         dlg.show();
     }
+
 }

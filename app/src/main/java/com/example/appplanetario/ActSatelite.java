@@ -1,6 +1,5 @@
 package com.example.appplanetario;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,33 +12,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActPlaneta extends AppCompatActivity {
+public class ActSatelite extends AppCompatActivity {
+    private String operacao;
     private TextView txtID;
     private TextView txtNome;
     private TextView txtMassa;
     private TextView txtTamanho;
-    private TextView txtGravidade;
     private TextView txtComposicao;
-    private String operacao;
     private Button btn;
-    private Planeta planeta;
+    private SateliteNatural satelite;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.act_planeta);
+        setContentView(R.layout.act_satelite);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
         operacao = "Operação";
         operacao = (String) getIntent().getSerializableExtra("operacao");
-        toolbar.setTitle("Planeta");
+        toolbar.setTitle("Satélite Natural");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,21 +48,18 @@ public class ActPlaneta extends AppCompatActivity {
         txtNome = findViewById(R.id.txt_nome);
         txtTamanho = findViewById(R.id.txt_tamanho);
         txtMassa = findViewById(R.id.txt_massa);
-        txtGravidade = findViewById(R.id.txt_gravidade);
         txtComposicao = findViewById(R.id.txt_comp);
         btn = findViewById(R.id.btn_remover);
 
-        planeta = (Planeta) getIntent().getSerializableExtra("planeta");
+        satelite = (SateliteNatural) getIntent().getSerializableExtra("satelite");
 
-        txtID.setText("ID: "+String.valueOf(planeta.getId()));
-        txtNome.setText("Nome: "+planeta.getNome());
-        txtMassa.setText("Massa: "+String.valueOf(planeta.getMassa()));
-        txtTamanho.setText("Tamanho: "+String.valueOf(planeta.getTamanho()));
-        txtGravidade.setText("Gravidade: "+String.valueOf(planeta.getGravidade()));
-
+        txtID.setText("ID: "+String.valueOf(satelite.getId()));
+        txtNome.setText("Nome: "+satelite.getNome());
+        txtMassa.setText("Massa: "+String.valueOf(satelite.getMassa()));
+        txtTamanho.setText("Tamanho: "+String.valueOf(satelite.getTamanho()));
         String compos = "";
-        for(int i=0; i<planeta.composicao.size(); i++){
-            compos = compos + " "+planeta.composicao.get(i);
+        for(int i=0; i<satelite.composicao.size(); i++){
+            compos = compos + " "+satelite.composicao.get(i);
         }
         txtComposicao.setText("Composição:"+compos);
 
@@ -74,12 +67,9 @@ public class ActPlaneta extends AppCompatActivity {
             btn.setVisibility(View.INVISIBLE);
 
         }
-
         if(operacao.equals("Remover")){
-           btn.setVisibility(View.VISIBLE);
-
+            btn.setVisibility(View.VISIBLE);
         }
-
     }
 
     public void clickBtnRemover(View view){
@@ -90,10 +80,10 @@ public class ActPlaneta extends AppCompatActivity {
         dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which){
                 boolean removeu = true;
-                //removeu = removerPlaneta(id); remove o planeta do banco
+                //removeu = removersatelite(id); remove o satelite do banco
                 if(removeu){
-                    Toast.makeText(getApplicationContext(), "Planeta removido!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActPlaneta.this, Act_Inicio.class);
+                    Toast.makeText(getApplicationContext(), "Satélite Natural removido!", Toast.LENGTH_LONG).show();
+                    Intent it = new Intent(ActSatelite.this, Act_Inicio.class);
                     startActivity(it);
                     finish();
                 }else{
@@ -103,4 +93,6 @@ public class ActPlaneta extends AppCompatActivity {
         });
         dlg.show();
     }
+
+
 }
