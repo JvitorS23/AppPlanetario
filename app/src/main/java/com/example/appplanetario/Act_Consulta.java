@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,10 @@ public class Act_Consulta extends AppCompatActivity {
     }
 
     public void clickBtnConsultar(View view){
+        if(edtId.getText().toString().trim().length()<1) {
+            edtId.requestFocus();
+            Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
+        }
         if(tipo.equals("Planeta") && edtId.getText().toString().trim().length()>0){
             Intent it = new Intent(Act_Consulta.this, ActPlaneta.class);
 

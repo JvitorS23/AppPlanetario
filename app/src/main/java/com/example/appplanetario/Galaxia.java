@@ -2,16 +2,16 @@ package com.example.appplanetario;
 
 import java.io.Serializable;
 
-public class Galáxia extends Entidade implements Serializable {
+public class Galaxia extends Entidade implements Serializable {
 
     public int qtd_sistemas ;
     public float dist_terra;
 
-    public Galáxia(int id, String nome) {
+    public Galaxia(int id, String nome) {
         super(id, nome);
     }
 
-    public Galáxia(int id, String nome, int qtd_sistemas, float dist_terra) {
+    public Galaxia(int id, String nome, int qtd_sistemas, float dist_terra) {
         super(id, nome);
         this.qtd_sistemas = qtd_sistemas;
         this.dist_terra = dist_terra;

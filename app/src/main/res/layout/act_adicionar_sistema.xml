@@ -25,111 +25,145 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/edtNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-32dp">
 
-    <EditText
-        android:id="@+id/edtID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtNome" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/lbl_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome"
-        app:layout_constraintBottom_toTopOf="@+id/edtNome"
-        app:layout_constraintStart_toStartOf="@+id/edtNome" />
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/lbl_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        app:layout_constraintBottom_toTopOf="@+id/edtID"
-        app:layout_constraintStart_toStartOf="@+id/edtID" />
+            <EditText
+                android:id="@+id/edtID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtNome" />
 
-    <EditText
-        android:id="@+id/edt_qtde_planetas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtID" />
+            <EditText
+                android:id="@+id/edt_qtde_planetas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtID" />
 
-    <EditText
-        android:id="@+id/edt_qtde_estrelas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_qtde_planetas" />
+            <EditText
+                android:id="@+id/edt_qtde_estrelas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_qtde_planetas" />
 
-    <EditText
-        android:id="@+id/edt_idade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_qtde_estrelas" />
+            <EditText
+                android:id="@+id/edt_idade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_qtde_estrelas" />
 
-    <TextView
-        android:id="@+id/lbl_qtde_planetas"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:text="Quantidade de Planetas"
-        app:layout_constraintBottom_toTopOf="@+id/edt_qtde_planetas"
-        app:layout_constraintStart_toStartOf="@+id/edt_qtde_planetas" />
+            <TextView
+                android:id="@+id/lbl_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome"
+                app:layout_constraintBottom_toTopOf="@+id/edtNome"
+                app:layout_constraintStart_toStartOf="@+id/edtNome" />
 
-    <TextView
-        android:id="@+id/lbl_qtde_estrelas"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:text="Quantidade de Estrelas"
-        app:layout_constraintBottom_toTopOf="@+id/edt_qtde_estrelas"
-        app:layout_constraintStart_toStartOf="@+id/edt_qtde_estrelas" />
+            <TextView
+                android:id="@+id/lbl_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                app:layout_constraintBottom_toTopOf="@+id/edtID"
+                app:layout_constraintStart_toStartOf="@+id/edtID" />
 
-    <TextView
-        android:id="@+id/lbl_idade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Idade do Sistema"
-        app:layout_constraintBottom_toTopOf="@+id/edt_idade"
-        app:layout_constraintStart_toStartOf="@+id/edt_idade" />
+            <TextView
+                android:id="@+id/lbl_qtde_planetas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantidade de Planetas"
+                app:layout_constraintBottom_toTopOf="@+id/edt_qtde_planetas"
+                app:layout_constraintStart_toStartOf="@+id/edt_qtde_planetas" />
 
-    <Button
-        android:id="@+id/btn_adicionar_sistema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:onClick="clickBtnAdicionarSistema"
-        android:text="@string/adicionar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_idade" />
+            <TextView
+                android:id="@+id/lbl_qtde_estrelas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantidade de Estrelas"
+                app:layout_constraintBottom_toTopOf="@+id/edt_qtde_estrelas"
+                app:layout_constraintStart_toStartOf="@+id/edt_qtde_estrelas" />
+
+            <TextView
+                android:id="@+id/lbl_idade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Idade"
+                app:layout_constraintBottom_toTopOf="@+id/edt_idade"
+                app:layout_constraintStart_toStartOf="@+id/edt_idade" />
+
+
+            <Button
+                android:id="@+id/btn_adicionar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="clickBtnAdicionarSistema"
+                android:text="@string/adicionar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_idade" />
+
+            <Button
+                android:id="@+id/btn_modificar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="clickBtnModificarSistema"
+                android:text="@string/modificar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_idade" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

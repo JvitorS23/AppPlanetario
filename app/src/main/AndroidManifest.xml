@@ -40,11 +40,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActModificarPlaneta"
-            android:label="@string/title_activity_act_modificar_planeta"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ActListar"
             android:label="@string/title_activity_act_listar"
             android:screenOrientation="portrait"

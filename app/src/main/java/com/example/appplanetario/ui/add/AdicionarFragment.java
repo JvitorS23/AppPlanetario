@@ -42,7 +42,7 @@ public class AdicionarFragment extends Fragment {
 
                 if (act != null) {
                     Intent it = new Intent(act, ActAdicionarPlaneta.class);
-                    it.putExtra("tipo", "Planeta");
+                    it.putExtra("operacao", "Adicionar");
                     startActivity(it);
                 }
             }
@@ -56,7 +56,7 @@ public class AdicionarFragment extends Fragment {
 
                 if (act != null) {
                     Intent it = new Intent(act, ActAdicionarSistema.class);
-                    it.putExtra("tipo", "Sistema Planetário");
+                    it.putExtra("operacao", "Adicionar");
                     startActivity(it);
                 }
             }
@@ -70,7 +70,7 @@ public class AdicionarFragment extends Fragment {
 
                 if (act != null) {
                     Intent it = new Intent(act, ActAdicionarGalaxia.class);
-                    it.putExtra("tipo", "Galáxia");
+                    it.putExtra("operacao", "Adicionar");
                     startActivity(it);
                 }
             }
@@ -84,7 +84,7 @@ public class AdicionarFragment extends Fragment {
 
                 if (act != null) {
                     Intent it = new Intent(act, ActAdicionarSatelite.class);
-                    it.putExtra("tipo", "Satélite Natural");
+                    it.putExtra("operacao", "Adicionar");
                     startActivity(it);
                 }
             }
@@ -98,7 +98,7 @@ public class AdicionarFragment extends Fragment {
 
                 if (act != null) {
                     Intent it = new Intent(act, ActAdicionarEstrela.class);
-                    it.putExtra("tipo", "Estrela");
+                    it.putExtra("operacao", "Adicionar");
                     startActivity(it);
                 }
             }

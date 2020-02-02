@@ -37,7 +37,6 @@ public class ModificarFragment extends Fragment {
                 FragmentActivity act = getActivity();
                 if (act != null) {
                     Intent it = new Intent(act, Act_Modificar.class);
-
                     it.putExtra("tipo", "Planeta");
                     startActivity(it);
                 }
