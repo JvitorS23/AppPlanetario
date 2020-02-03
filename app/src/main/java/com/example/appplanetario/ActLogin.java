@@ -1,21 +1,31 @@
 package com.example.appplanetario;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActLogin extends AppCompatActivity {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class ActLogin extends AppCompatActivity implements LoginBackground.OnLoginCompletedListener {
 
     private EditText edtUser;
     private EditText edtPass;
     private Button btnCad;
     private Button  btnLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,9 @@ public class ActLogin extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.btnLogin);
         edtUser.clearFocus();
         edtPass.clearFocus();
+
+
+
     }
 
     public void telaCad(View view) {
@@ -36,14 +49,19 @@ public class ActLogin extends AppCompatActivity {
         startActivity(it);
 
     }
-
     public void clickBtnLogin(View view) {
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtPass.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtUser.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         int i = validaCampos();
         if(i==0) {
+            String user = edtUser.getText().toString();
+            String pass = edtPass.getText().toString();
 
-            Intent it = new Intent(ActLogin.this, Act_Inicio.class);
-            startActivity(it);
-            finish();
+            LoginBackground lb = new LoginBackground(this);
+            lb.setOnLoginCompletedListener(ActLogin.this);
+            lb.execute(user, pass);
+
 
         }else {
             if(i==1) {
@@ -81,5 +99,32 @@ public class ActLogin extends AppCompatActivity {
         return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
     }
 
+    @Override
+    public void onLoginCompleted(String result) {
+        System.out.println(result);
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-CONSULTA")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Usuário ou senha incorretos!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+            edtUser.requestFocus();
+        }
+
+        if(result.equals("OK")){
+            Intent it = new Intent(ActLogin.this, Act_Inicio.class);
+            startActivity(it);
+            finish();
+        }
+
+    }
 }
 

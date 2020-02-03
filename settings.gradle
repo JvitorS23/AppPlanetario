@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':pg'
 rootProject.name='AppPlanetario'
