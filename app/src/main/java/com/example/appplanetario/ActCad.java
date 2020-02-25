@@ -81,9 +81,15 @@ public class ActCad extends AppCompatActivity implements CadBackground.OnCadComp
                     Toast.makeText(this, "Campo senha não pode ter espaços!", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    CadBackground cb = new CadBackground(this);
-                    cb.setOnCadCompletedListener(ActCad.this);
-                    cb.execute(user, senha1);
+                    if(user.length()<4 || user.length()>45){
+                        edtUser.requestFocus();
+                        Toast.makeText(this, "Username deve ter pelo menos 4 e no máximo 45 caracteres!", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        CadBackground cb = new CadBackground(this);
+                        cb.setOnCadCompletedListener(ActCad.this);
+                        cb.execute(user, senha1);
+                    }
 
                 }
             }

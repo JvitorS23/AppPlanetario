@@ -45,7 +45,7 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
         if(!connect())
             return "ERRO-CONEXAO";
 
-        String sql = "Select nome FROM astros.usuario WHERE nome = ? AND senha = md5(?)";
+        String sql = "SELECT username FROM astros.usuario WHERE username = ? AND password = md5(?)";
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -74,7 +74,7 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
             System.out.println(rs);
             if(rs.next()){
                 result = "OK";
-                System.out.println(rs.getString("nome"));
+                System.out.println(rs.getString("username"));
 
             }else{
                 result = "ERRO-CONSULTA";
@@ -115,7 +115,7 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
             Class.forName("org.postgresql.Driver");
 
             /** Obtendo a conexao com o banco de dados*/
-            this.con = DriverManager.getConnection("jdbc:postgresql://db-server.cl0sgknwftbr.us-east-1.rds.amazonaws.com:5432/AppAstros", "postgres", "rabada123");
+            this.con = DriverManager.getConnection("jdbc:postgresql://ec2-52-202-185-87.compute-1.amazonaws.com:5432/d3kpi243df7o13", "zgashvtuvobqho", "c66b10ef01f1847512fee89609de964b73142d8f811661916ed17ad87df6868d");
 
             /** Retorna um erro caso nao encontre o driver, ou alguma informacao sobre o mesmo esteja errada */
         } catch (ClassNotFoundException cnfe) {
