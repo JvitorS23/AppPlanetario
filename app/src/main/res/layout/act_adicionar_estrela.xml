@@ -50,18 +50,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/edtMassa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="24dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtGravidade" />
-
             <TextView
                 android:id="@+id/lbl_idade"
                 android:layout_width="wrap_content"
@@ -77,14 +65,6 @@
                 android:text="Distância da Terra"
                 app:layout_constraintBottom_toTopOf="@+id/edtDistTerra"
                 app:layout_constraintStart_toStartOf="@+id/edtDistTerra" />
-
-            <TextView
-                android:id="@+id/lbl_massa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Massa"
-                app:layout_constraintBottom_toTopOf="@+id/edtMassa"
-                app:layout_constraintStart_toStartOf="@+id/edtMassa" />
 
             <TextView
                 android:id="@+id/lbl_tamanho"
@@ -111,7 +91,7 @@
                 android:inputType="numberSigned"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtMassa" />
+                app:layout_constraintTop_toBottomOf="@+id/edtGravidade" />
 
             <EditText
                 android:id="@+id/edtID"

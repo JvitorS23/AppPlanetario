@@ -8,17 +8,25 @@ public class Estrela extends Entidade implements Serializable {
     public float dist_terra;
     public float gravidade;
     public float tamanho;
-    public float massa;
-    public String tipo_estrela;
 
-    public Estrela(int id, String nome, int idade, float dist_terra, float gravidade, float tamanho, float massa, String tipo_estrela) {
+    public String tipo_estrela;
+    public boolean morte;
+
+    public Estrela(int id, String nome, int idade, float dist_terra, float gravidade, float tamanho, String tipo_estrela) {
         super(id, nome);
         this.idade = idade;
         this.dist_terra = dist_terra;
         this.gravidade = gravidade;
         this.tamanho = tamanho;
-        this.massa = massa;
         this.tipo_estrela = tipo_estrela;
+    }
+
+    public boolean isMorte() {
+        return morte;
+    }
+
+    public void setMorte(boolean morte) {
+        this.morte = morte;
     }
 
     public int getIdade() {
@@ -53,13 +61,6 @@ public class Estrela extends Entidade implements Serializable {
         this.tamanho = tamanho;
     }
 
-    public float getMassa() {
-        return massa;
-    }
-
-    public void setMassa(float massa) {
-        this.massa = massa;
-    }
 
     public String getTipo_estrela() {
         return tipo_estrela;

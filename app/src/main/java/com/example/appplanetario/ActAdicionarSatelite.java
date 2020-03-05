@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActAdicionarSatelite extends AppCompatActivity {
+public class ActAdicionarSatelite extends AppCompatActivity implements AddSateliteBackground.OnAddSateliteCompletedListener{
 
     private String operacao;
     private Button btn;
@@ -26,6 +26,7 @@ public class ActAdicionarSatelite extends AppCompatActivity {
     private EditText form_massa;
     private EditText form_tamanho;
     private EditText form_composicao;
+
     private SateliteNatural satelite;
 
     @Override
@@ -66,30 +67,30 @@ public class ActAdicionarSatelite extends AppCompatActivity {
             satelite = (SateliteNatural) getIntent().getExtras().getSerializable("satelite");
             form_nome.setText(satelite.getNome());
             form_id.setText(""+satelite.getId());
-            form_massa.setText(""+satelite.getMassa());
+            form_massa.setText(""+satelite.getPeso());
             form_tamanho.setText(""+satelite.getTamanho());
             String compos = "";
-            for(int i=0; i<satelite.composicao.size(); i++){
+            for(int i=0; i<satelite.composicao.length; i++){
 
-                compos = compos +satelite.composicao.get(i)+", ";
+                compos = compos +satelite.composicao[i]+", ";
             }
             form_composicao.setText(compos);
+
 
         }
     }
 
     public void clickBtnAdicionarSatelite(View view){
         if(validaCampos()){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Satélite Natural Adicionado");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarSatelite.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
+            String nome = form_nome.getText().toString();
+            int id = Integer.parseInt(form_id.getText().toString());
+            String[] comp = form_composicao.getText().toString().split(",");
+            float tam = Float.parseFloat(form_tamanho.getText().toString());
+            float peso = Float.parseFloat(form_massa.getText().toString());
+            this.satelite = new SateliteNatural(id, nome, tam, peso, comp);
+            AddSateliteBackground add_satelite = new AddSateliteBackground(this);
+            add_satelite.setOnAddSateliteCompletedListener(this);
+            add_satelite.execute(satelite);
         }
 
     }
@@ -152,4 +153,37 @@ public class ActAdicionarSatelite extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddSateliteCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-INSERCAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao inserir Satélite Natural!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Satélite Natural inserido!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarSatelite.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+    }
 }

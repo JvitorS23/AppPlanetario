@@ -3,49 +3,76 @@ package com.example.appplanetario;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginBackground extends AsyncTask<String, Void, String>{
-
-    //interface para comunicação da tarefa com a activity
-    public interface OnLoginCompletedListener{
-        void onLoginCompleted(String result);
-    }
+public class ConsultaAstrosBackground extends AsyncTask<String, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
+    public String tipo;
+    public ResultSet resultado;
+    private ConsultaAstrosBackground.OnConsultaCompletedListener onConsultaCompletedListener;
 
-    private LoginBackground.OnLoginCompletedListener onLoginCompletedListener;
-
-    public void setOnLoginCompletedListener(LoginBackground.OnLoginCompletedListener onLoginCompletedListener){
-        this.onLoginCompletedListener = onLoginCompletedListener;
+    public ConsultaAstrosBackground(Context mContext, String tipo) {
+        this.mContext = mContext;
+        this.tipo = tipo;
     }
 
-    public LoginBackground(Context context) {
-        super();
-        this.mContext = context;
+    public interface OnConsultaCompletedListener{
+        void onConsultaCompleted(String result, ResultSet resultado) throws SQLException;
     }
+
+    public void setOnConsultaCompletedListener(ConsultaAstrosBackground.OnConsultaCompletedListener onConsultaCompletedListener) {
+        this.onConsultaCompletedListener = onConsultaCompletedListener;
+    }
+
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Validando login...");
+        mDialog.setMessage("Buscando Astro...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
+
     @Override
-    protected String doInBackground(String ... user) {
-        if(!connect())
+    protected String doInBackground(String ... id) {
+        boolean conectou = false;
+        conectou = connect();
+
+        if(!conectou)
             return "ERRO-CONEXAO";
 
-        String sql = "SELECT username FROM astros.usuario WHERE username = ? AND password = md5(?)";
+        String sql = "";
+
+        int id_ = Integer.parseInt(id[0]);
+
+        switch (tipo){
+            case "Planeta":
+                sql = "SELECT * FROM astros.planeta WHERE id_planeta = ?";
+                break;
+            case "Estrela":
+                sql = "SELECT * FROM astros.estrela WHERE id_estrela = ?";
+                break;
+            case "Sistema Planetário":
+                sql = "SELECT * FROM astros.sistema_planetario WHERE id_sistema = ?";
+                break;
+            case "Satélite Natural":
+                sql = "SELECT * FROM astros.satelite_natural WHERE id_sn = ?";
+                break;
+            case "Galáxia":
+                sql = "SELECT * FROM astros.galaxia WHERE id_galaxia = ?";
+                break;
+        }
+
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -58,15 +85,11 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setString(1, user[0]);
+            ps.setInt(1, id_);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            ps.setString(2, user[1]);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         String result = "";
 
         try {
@@ -74,6 +97,7 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
 
             if(rs.next()){
                 result = "OK";
+                resultado = rs;
 
 
             }else{
@@ -98,15 +122,21 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
         return result;
     }
 
+
     @Override
     protected void onPostExecute(String str){
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onLoginCompletedListener != null){
+        if(onConsultaCompletedListener != null){
             //Chama o listener passando a string
-            onLoginCompletedListener.onLoginCompleted(str);
+            try{
+                onConsultaCompletedListener.onConsultaCompleted(str, this.resultado);
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
+
 
     protected boolean connect() {
 

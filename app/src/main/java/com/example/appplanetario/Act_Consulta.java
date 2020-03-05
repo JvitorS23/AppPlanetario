@@ -1,5 +1,6 @@
 package com.example.appplanetario;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -15,9 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Act_Consulta extends AppCompatActivity {
+public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBackground.OnConsultaCompletedListener{
     private TextView txtID;
     private EditText edtId;
     public String tipo;
@@ -44,31 +50,117 @@ public class Act_Consulta extends AppCompatActivity {
 
     }
 
-    public void clickBtnConsultar(View view){
+    public void clickBtnConsultar(View view) throws SQLException {
         if(edtId.getText().toString().trim().length()<1) {
             edtId.requestFocus();
             Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show();
         }else{
+            ConsultaAstrosBackground consulta = null;
             switch (tipo) {
                 case "Planeta":
+
+
                     //Procurar planeta no banco
-                    //Se encontrar instanciar planeta e passar para a activity planeta
+
+                     consulta = new ConsultaAstrosBackground(this, "Planeta");
+                     consulta.setOnConsultaCompletedListener(this);
+                     consulta.execute(this.edtId.getText().toString());
+
+
+                    break;
+                case "Galáxia":
+                    //Procurar galxia no banco
+                    consulta = new ConsultaAstrosBackground(this, "Galáxia");
+                    consulta.setOnConsultaCompletedListener(this);
+                    consulta.execute(this.edtId.getText().toString());
+
+
+                    break;
+                case "Estrela":
+                    //Procurar estrela no banco
+                    consulta = new ConsultaAstrosBackground(this, "Estrela");
+                    consulta.setOnConsultaCompletedListener(this);
+                    consulta.execute(this.edtId.getText().toString());
+
+                    break;
+                case "Sistema Planetário":
+                    //Procurar sistema no banco
+                    consulta = new ConsultaAstrosBackground(this, "Sistema Planetário");
+                    consulta.setOnConsultaCompletedListener(this);
+                    consulta.execute(this.edtId.getText().toString());
+
+
+                    break;
+                case "Satélite Natural":
+                    //Procurar satélite no banco
+                    consulta = new ConsultaAstrosBackground(this, "Satélite Natural");
+                    consulta.setOnConsultaCompletedListener(this);
+                    consulta.execute(this.edtId.getText().toString());
+
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onConsultaCompleted(String result, ResultSet resultado)  {
+
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-CONSULTA")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Astro não encontrado!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            switch (tipo) {
+                case "Planeta":
                     Intent it = new Intent(Act_Consulta.this, ActPlaneta.class);
-                    ArrayList<String> composicao = new ArrayList();
-                    composicao.add("Carbono");
-                    composicao.add("Hidrogênio");
-                    Planeta planeta = new Planeta(Integer.parseInt(edtId.getText().toString()), "Terra",
-                            1000.0f, 50.0f, 9.8f, composicao);
+                    Planeta planeta = null;
+                    String[] composicao = null;
+                    try {
+                        Array comp =  resultado.getArray("comp_planeta");
+                        String str_comp = comp.toString();
+                        str_comp = str_comp.replace("{", "");
+                        str_comp = str_comp.replace("}", "");
+                        composicao = str_comp.split(",");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        planeta = new Planeta(resultado.getInt("id_planeta"),
+                                resultado.getString("nome_planeta"), resultado.getFloat("tam_planeta"),
+                                resultado.getFloat("peso_planeta"), resultado.getFloat("gravidade_planeta"),
+                                resultado.getFloat("vel_rotacao"), composicao);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     it.putExtra("planeta", planeta);
                     it.putExtra("operacao", "Consultar");
                     startActivity(it);
                     break;
                 case "Galáxia":
-                    //Procurar galxia no banco
-                    //Se encontrar instanciar galaxia e passar para a activity modificar galaxia
                     Intent it2 = new Intent(Act_Consulta.this, ActGalaxia.class);
-                    Galaxia galaxia = new Galaxia(Integer.parseInt(edtId.getText().toString()), "Via-láctea",
-                            1000, 100000f);
+                    Galaxia galaxia = null;
+                    try {
+                       galaxia = new Galaxia(resultado.getInt("id_galaxia"), resultado.getString("nome_galaxia"),
+                               resultado.getInt("qtd_sistemas"), resultado.getFloat("dist_terra"));
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                     it2.putExtra("galaxia", galaxia);
                     it2.putExtra("operacao", "Consultar");
                     startActivity(it2);
@@ -77,18 +169,33 @@ public class Act_Consulta extends AppCompatActivity {
                     //Procurar estrela no banco
                     // Se encontrar instanciar estrela e passar para a activity modificar estrela
                     Intent it3 = new Intent(Act_Consulta.this, ActEstrela.class);
-                    Estrela estrela = new Estrela(Integer.parseInt(edtId.getText().toString()), "Sol",
-                            1000, 50000f, 900.8f, 500, 41010, "Gigante Azul");
+                    Estrela estrela = null;
+
+                    try {
+                        estrela = new Estrela(resultado.getInt("id_estrela"), resultado.getString("nome_estrela"),
+                                resultado.getInt("idade_estrela"), resultado.getFloat("dist_terra"),
+                                resultado.getFloat("gravidade_estrela"), resultado.getFloat("tam_estrela"),
+                                resultado.getString("tipo_estrela"));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     it3.putExtra("estrela", estrela);
                     it3.putExtra("operacao", "Consultar");
                     startActivity(it3);
                     break;
                 case "Sistema Planetário":
                     //Procurar sistema no banco
-                    //Se encontrar instanciar sistema e passar para a activity modificar sistema
                     Intent it4 = new Intent(Act_Consulta.this, ActSistema.class);
-                    SistemaPlanetario sistema = new SistemaPlanetario(Integer.parseInt(edtId.getText().toString()), "Sistema Solar",
-                            8, 100000, 90);
+                    SistemaPlanetario sistema = null;
+
+                    try {
+                        sistema = new SistemaPlanetario(resultado.getInt("id_sistema"),
+                                resultado.getString("nome_sistema"), resultado.getInt("qtd_planetas"),
+                                resultado.getInt("qtd_estrelas"), resultado.getInt("idade_sistema"),
+                                resultado.getInt("id_galaxia"));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     it4.putExtra("sistema", sistema);
                     it4.putExtra("operacao", "Consultar");
                     startActivity(it4);
@@ -96,22 +203,35 @@ public class Act_Consulta extends AppCompatActivity {
                     break;
                 case "Satélite Natural":
                     //Procurar satélite no banco
-                    //Se encontrar instanciar satélite e passar para a activity modificar satelite
+
                     Intent it5 = new Intent(Act_Consulta.this, ActSatelite.class);
-                    ArrayList<String> composicao2 = new ArrayList();
-                    composicao2.add("Carbono");
-                    composicao2.add("Hidrogênio");
-                    SateliteNatural satelite = new SateliteNatural(Integer.parseInt(edtId.getText().toString()), "Lua",
-                            1000.0f, 100000f, composicao2);
+
+                    SateliteNatural satelite = null;
+                    String[] composicao2 = null;
+
+
+                    Array comp = null;
+                    try {
+                        comp = resultado.getArray("comp_sn");
+                        String str_comp = comp.toString();
+                        str_comp = str_comp.replace("{", "");
+                        str_comp = str_comp.replace("}", "");
+                        composicao2 = str_comp.split(",");
+                        satelite = new SateliteNatural(resultado.getInt("id_sn"), resultado.getString("nome_sn"),
+                                resultado.getFloat("tam_sn"), resultado.getFloat("peso_sn"), composicao2);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
                     it5.putExtra("satelite", satelite);
                     it5.putExtra("operacao", "Consultar");
                     startActivity(it5);
                     break;
             }
+
+
+
         }
-
-
-
     }
-
 }

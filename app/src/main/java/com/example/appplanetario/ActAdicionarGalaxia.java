@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActAdicionarGalaxia extends AppCompatActivity {
+public class ActAdicionarGalaxia extends AppCompatActivity implements AddGalaxiaBackground.OnAddGalaxiaCompletedListener{
+
+
+
 
     private String operacao;
     private Button btn;
@@ -78,16 +81,16 @@ public class ActAdicionarGalaxia extends AppCompatActivity {
 
     public void clickBtnAdicionarGalaxia(View view){
         if(validaCampos()){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Galáxia Adicionada");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarGalaxia.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
+            int id = Integer.parseInt(form_id.getText().toString());
+            String nome = form_nome.getText().toString();
+            int qtde_sistemas = Integer.parseInt(form_qtde_sistemas.getText().toString());
+            float dist = Float.parseFloat(form_dist_terra.getText().toString());
+
+            this.galaxia = new Galaxia(id, nome, qtde_sistemas, dist);
+
+            AddGalaxiaBackground add_galaxia = new AddGalaxiaBackground(this);
+            add_galaxia.setOnAddGalaxiaCompletedListener(this);
+            add_galaxia.execute(this.galaxia);
 
         }
 
@@ -144,4 +147,39 @@ public class ActAdicionarGalaxia extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddGalaxiaCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-INSERCAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao inserir galáxia!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Galáxia inserida!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarGalaxia.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+
+
+    }
 }

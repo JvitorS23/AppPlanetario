@@ -166,7 +166,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_composicao" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_vel_rotacao" />
+
             <Button
                 android:id="@+id/btn_modificar"
                 android:layout_width="wrap_content"
@@ -178,7 +179,26 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_vel_rotacao" />
+
+            <EditText
+                android:id="@+id/edt_vel_rotacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_composicao" />
+
+            <TextView
+                android:id="@+id/lbl_vel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Velocidade de Rotação"
+                app:layout_constraintBottom_toTopOf="@+id/edt_vel_rotacao"
+                app:layout_constraintStart_toStartOf="@+id/edt_vel_rotacao" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

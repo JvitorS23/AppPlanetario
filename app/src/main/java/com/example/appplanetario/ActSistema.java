@@ -1,5 +1,6 @@
 package com.example.appplanetario;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActSistema extends AppCompatActivity {
+import java.sql.SQLException;
+
+public class ActSistema extends AppCompatActivity implements RemoverAstrosBackground.OnRemoverCompletedListener{
 
     private TextView txtID;
     private TextView txtNome;
@@ -66,25 +69,56 @@ public class ActSistema extends AppCompatActivity {
     }
 
     public void clickBtnRemover(View view){
-        boolean achou = true;
+        final Context a = this;
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
         dlg.setMessage("Tem certeza que deseja remover ?");
         dlg.setNegativeButton("Cancelar", null);
         dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which){
-                boolean removeu = true;
-                //removeu = removerPlaneta(id); remove o planeta do banco
-                if(removeu){
-                    Toast.makeText(getApplicationContext(), "Sistema Planetário removido!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActSistema.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
-                }
+                RemoverAstrosBackground remover = new RemoverAstrosBackground(a, "Sistema Planetário");
+                remover.setOnRemoverCompletedListener((RemoverAstrosBackground.OnRemoverCompletedListener) a);
+                remover.execute(sistema.getId()+"");
             }
         });
         dlg.show();
+    }
+
+
+    @Override
+    public void onRemoverCompleted(String result) throws SQLException {
+
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-REMOVER")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao remover Sistema Planetário!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Sistema Planetário Removido!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActSistema.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+
+
     }
 
 }

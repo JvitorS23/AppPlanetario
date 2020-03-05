@@ -50,11 +50,9 @@ public class Act_Modificar extends AppCompatActivity {
                 Intent it = new Intent(Act_Modificar.this, ActAdicionarPlaneta.class);
 
                 //Se encontrar instanciar planeta e passar para a activity modificar planeta
-                ArrayList<String> composicao = new ArrayList();
-                composicao.add("Carbono");
-                composicao.add("Hidrogênio");
+                String[] composicao = new String[]{"carbono", "Hidrogenio"};
                 Planeta planeta = new Planeta(Integer.parseInt(edtId.getText().toString()), "Terra",
-                        1000.0f, 50.0f, 9.8f, composicao);
+                        1000.0f, 50.0f, 9.8f,100.0f, composicao);
                 it.putExtra("planeta", planeta);
                 it.putExtra("operacao", "Modificar");
                 startActivity(it);
@@ -66,7 +64,7 @@ public class Act_Modificar extends AppCompatActivity {
                 //Se encontrar instanciar estrela e passar para a activity modificar estrela
 
                 Estrela estrela = new Estrela(Integer.parseInt(edtId.getText().toString()), "Sol",
-                        1000, 50000f, 900.8f, 500, 41010, "Gigante Azul");
+                        1000, 50000f, 900.8f, 41010, "Gigante Azul");
                 it.putExtra("estrela", estrela);
                 it.putExtra("operacao", "Modificar");
                 startActivity(it);
@@ -87,9 +85,7 @@ public class Act_Modificar extends AppCompatActivity {
                 //Procurar satélite no banco
                 //Se encontrar instanciar satélite e passar para a activity modificar satelite
                 Intent it = new Intent(Act_Modificar.this, ActAdicionarSatelite.class);
-                ArrayList<String> composicao = new ArrayList();
-                composicao.add("Carbono");
-                composicao.add("Hidrogênio");
+                String[] composicao = new String[]{"carbono", "Hidrogenio"};
                 SateliteNatural satelite = new SateliteNatural(Integer.parseInt(edtId.getText().toString()), "Lua",
                         1000.0f, 100000f, composicao);
                 it.putExtra("satelite", satelite);
@@ -102,7 +98,7 @@ public class Act_Modificar extends AppCompatActivity {
                 //Se encontrar instanciar sistema e passar para a activity modificar sistema
                 Intent it = new Intent(Act_Modificar.this, ActAdicionarSistema.class);
                 SistemaPlanetario sistema = new SistemaPlanetario(Integer.parseInt(edtId.getText().toString()), "Sistema Solar",
-                        8, 100000, 90);
+                        8, 100000, 90, 100);
                 it.putExtra("sistema", sistema);
                 it.putExtra("operacao", "Modificar");
                 startActivity(it);

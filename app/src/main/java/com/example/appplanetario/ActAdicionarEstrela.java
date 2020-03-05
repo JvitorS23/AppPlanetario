@@ -21,7 +21,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class ActAdicionarEstrela extends AppCompatActivity {
+public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrelaBackground.OnAddEstrelaCompletedListener{
+
+
+
 
     private String operacao;
     private Button btn;
@@ -30,7 +33,7 @@ public class ActAdicionarEstrela extends AppCompatActivity {
     private EditText form_tamanho;
     private EditText form_dist_terra;
     private EditText form_gravidade;
-    private EditText form_massa;
+
     private EditText form_idade;
     private RadioGroup form_tipo;
     private RadioButton radio_escolhido;
@@ -63,7 +66,7 @@ public class ActAdicionarEstrela extends AppCompatActivity {
         form_tamanho = findViewById(R.id.edtTamanho);
         form_dist_terra = findViewById(R.id.edtDistTerra);
         form_gravidade = findViewById(R.id.edtGravidade);
-        form_massa = findViewById(R.id.edtMassa);
+
         form_idade = findViewById(R.id.edtIdade);
         form_tipo = findViewById(R.id.tipoEstrela);
 
@@ -82,7 +85,6 @@ public class ActAdicionarEstrela extends AppCompatActivity {
             estrela = (Estrela) getIntent().getExtras().getSerializable("estrela");
             form_nome.setText(estrela.getNome());
             form_id.setText(""+estrela.getId());
-            form_massa.setText(""+estrela.getMassa());
             form_tamanho.setText(""+estrela.getTamanho());
             form_gravidade.setText(""+estrela.getGravidade());
             form_dist_terra.setText(""+estrela.getDist_terra());
@@ -113,17 +115,19 @@ public class ActAdicionarEstrela extends AppCompatActivity {
 
     public void clickBtnAdicionarEstrela(View view){
         if(validaCampos()){
-            //adicionar estrela no banco
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Estrela Adicionada");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarEstrela.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
+
+            int id = Integer.parseInt(form_id.getText().toString());
+            String nome = form_nome.getText().toString();
+            int idade = Integer.parseInt(form_idade.getText().toString());
+            float dist = Float.parseFloat(form_dist_terra.getText().toString());
+            float gravidade = Float.parseFloat(form_gravidade.getText().toString());
+            float tamanho = Float.parseFloat(form_tamanho.getText().toString());
+            radio_escolhido = findViewById(form_tipo.getCheckedRadioButtonId());
+            String tipo = radio_escolhido.getText().toString();
+            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo);
+            AddEstrelaBackground add_estrela = new AddEstrelaBackground(this);
+            add_estrela.setOnAddEstrelaCompletedListener(this);
+            add_estrela.execute(this.estrela);
         }
 
     }
@@ -173,26 +177,21 @@ public class ActAdicionarEstrela extends AppCompatActivity {
                             Toast.makeText(this, "Campo gravidade vazio", Toast.LENGTH_SHORT).show();
                             valid = false;
                         }else{
-                            if(isCampoVazio(form_massa.getText().toString())){
-                                form_massa.requestFocus();
-                                Toast.makeText(this, "Campo massa vazio", Toast.LENGTH_SHORT).show();
+                            if(isCampoVazio(form_idade.getText().toString())){
+                                form_idade.requestFocus();
+                                Toast.makeText(this, "Campo idade vazio", Toast.LENGTH_SHORT).show();
                                 valid = false;
+
                             }else{
-                                if(isCampoVazio(form_idade.getText().toString())){
-                                    form_idade.requestFocus();
-                                    Toast.makeText(this, "Campo idade vazio", Toast.LENGTH_SHORT).show();
+                                int id_escolha = form_tipo.getCheckedRadioButtonId();
+                                if(id_escolha==-1){
+                                    form_tipo.requestFocus();
+                                    Toast.makeText(this, "Selecione o tipo da estrela", Toast.LENGTH_SHORT).show();
                                     valid = false;
 
-                                }else{
-                                    int id_escolha = form_tipo.getCheckedRadioButtonId();
-                                    if(id_escolha==-1){
-                                        form_tipo.requestFocus();
-                                        Toast.makeText(this, "Selecione o tipo da estrela", Toast.LENGTH_SHORT).show();
-                                        valid = false;
-
-                                    }
                                 }
                             }
+
                         }
 
                     }
@@ -206,4 +205,37 @@ public class ActAdicionarEstrela extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onAddEstrelaCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-INSERCAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao inserir estrela!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Estrela inserida!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarEstrela.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+    }
 }

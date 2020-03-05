@@ -3,49 +3,52 @@ package com.example.appplanetario;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginBackground extends AsyncTask<String, Void, String>{
-
-    //interface para comunicação da tarefa com a activity
-    public interface OnLoginCompletedListener{
-        void onLoginCompleted(String result);
-    }
+public class AddEstrelaBackground extends AsyncTask<Estrela, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
+    private AddEstrelaBackground.OnAddEstrelaCompletedListener onAddEstrelaCompletedListener;
 
-    private LoginBackground.OnLoginCompletedListener onLoginCompletedListener;
-
-    public void setOnLoginCompletedListener(LoginBackground.OnLoginCompletedListener onLoginCompletedListener){
-        this.onLoginCompletedListener = onLoginCompletedListener;
+    public AddEstrelaBackground(Context mContext) {
+        this.mContext = mContext;
     }
 
-    public LoginBackground(Context context) {
-        super();
-        this.mContext = context;
+    public interface OnAddEstrelaCompletedListener{
+        void onAddEstrelaCompleted(String result);
     }
+
+    public void setOnAddEstrelaCompletedListener(AddEstrelaBackground.OnAddEstrelaCompletedListener onAddEstrelaCompletedListener) {
+        this.onAddEstrelaCompletedListener = onAddEstrelaCompletedListener;
+    }
+
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Validando login...");
+        mDialog.setMessage("Adicionando Estrela...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
+
     @Override
-    protected String doInBackground(String ... user) {
-        if(!connect())
+    protected String doInBackground(Estrela ... estrela) {
+        boolean conectou = false;
+        conectou = connect();
+
+        if(!conectou)
             return "ERRO-CONEXAO";
 
-        String sql = "SELECT username FROM astros.usuario WHERE username = ? AND password = md5(?)";
+
+        String sql = "INSERT INTO astros.estrela VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -58,35 +61,26 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setString(1, user[0]);
+            ps.setInt(1, estrela[0].getId());
+            ps.setInt(2, estrela[0].getIdade());
+            ps.setFloat(3, estrela[0].getDist_terra());
+            ps.setString(4, estrela[0].getNome());
+            ps.setFloat(5, estrela[0].getTamanho());
+            ps.setFloat(6, estrela[0].getGravidade());
+            ps.setString(7, estrela[0].getTipo_estrela());
+            ps.setBoolean(8, false);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        String result = "OK";
         try {
-            ps.setString(2, user[1]);
+            ps.execute();
         } catch (SQLException e) {
+            result = "ERRO-INSERCAO";
             e.printStackTrace();
         }
-        String result = "";
-
-        try {
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                result = "OK";
-
-
-            }else{
-                result = "ERRO-CONSULTA";
-
-            }
-
-        } catch (SQLException e) {
-            result = "ERRO-CONSULTA";
-            e.printStackTrace();
-        }
-
-        //encerra conexão
         try {
             if(this.con!=null){
                 this.con.close();
@@ -98,15 +92,17 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
         return result;
     }
 
+
     @Override
     protected void onPostExecute(String str){
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onLoginCompletedListener != null){
+        if(onAddEstrelaCompletedListener != null){
             //Chama o listener passando a string
-            onLoginCompletedListener.onLoginCompleted(str);
+            onAddEstrelaCompletedListener.onAddEstrelaCompleted(str);
         }
     }
+
 
     protected boolean connect() {
 

@@ -1,5 +1,6 @@
 package com.example.appplanetario;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +17,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActEstrela extends AppCompatActivity {
+import java.sql.SQLException;
+
+public class ActEstrela extends AppCompatActivity implements RemoverAstrosBackground.OnRemoverCompletedListener{
     private String  operacao;
     private TextView txtID;
     private TextView txtNome;
     private TextView txtDistTerra;
     private TextView txtTamanho;
     private TextView txtGravidade;
-    private TextView txtMassa;
+
     private TextView txtIdade;
     private TextView txtTipo;
     private Button btn;
@@ -52,7 +55,7 @@ public class ActEstrela extends AppCompatActivity {
         txtTamanho = findViewById(R.id.txt_tamanho);
         txtDistTerra = findViewById(R.id.txt_dist_terra);
         txtGravidade = findViewById(R.id.txt_gravidade);
-        txtMassa = findViewById(R.id.txt_massa);
+
         txtIdade = findViewById(R.id.txt_idade);
         txtTipo = findViewById(R.id.txt_tipo);
         btn = findViewById(R.id.btn_remover);
@@ -64,7 +67,7 @@ public class ActEstrela extends AppCompatActivity {
         txtTamanho.setText("Tamanho "+estrela.getTamanho());
         txtDistTerra.setText("Distância da Terra: "+estrela.getDist_terra());
         txtGravidade.setText("Gravidade: "+estrela.getGravidade()+"");
-        txtMassa.setText("Massa: "+estrela.getMassa()+"");
+
         txtIdade.setText("Idade: "+estrela.getIdade()+"");
         txtTipo.setText("Tipo: "+estrela.getTipo_estrela());
 
@@ -80,25 +83,56 @@ public class ActEstrela extends AppCompatActivity {
 
 
     public void clickBtnRemover(View view){
-        boolean achou = true;
+        final Context a = this;
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
         dlg.setMessage("Tem certeza que deseja remover ?");
         dlg.setNegativeButton("Cancelar", null);
         dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which){
-                boolean removeu = true;
-                //removeu = removerPlaneta(id); remove o planeta do banco
-                if(removeu){
-                    Toast.makeText(getApplicationContext(), "Estrela removida!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActEstrela.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
-                }
+                RemoverAstrosBackground remover = new RemoverAstrosBackground(a, "Estrela");
+                remover.setOnRemoverCompletedListener((RemoverAstrosBackground.OnRemoverCompletedListener) a);
+                remover.execute(estrela.getId()+"");
             }
         });
         dlg.show();
     }
+
+    @Override
+    public void onRemoverCompleted(String result) throws SQLException {
+
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-REMOVER")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao remover Estrela!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Estrela Removida!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActEstrela.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+
+
+    }
+
 
 }

@@ -36,13 +36,15 @@ public class CadBackground extends AsyncTask<String, Void, String> {
             mDialog = new ProgressDialog(mContext);
             mDialog.setMessage("Realizando cadastro...");
             mDialog.setCanceledOnTouchOutside(false);
-
             mDialog.show();
         }
 
         @Override
         protected String doInBackground(String ... user) {
-            if(!connect())
+            boolean conectou = false;
+            conectou = connect();
+
+            if(!conectou)
                 return "ERRO-CONEXAO";
 
             String sql = "INSERT INTO astros.usuario VALUES(?, md5(?))";
@@ -103,17 +105,22 @@ public class CadBackground extends AsyncTask<String, Void, String> {
                 Class.forName("org.postgresql.Driver");
 
                 /** Obtendo a conexao com o banco de dados*/
-                this.con = DriverManager.getConnection("jdbc:postgresql://ec2-52-202-185-87.compute-1.amazonaws.com:5432/d3kpi243df7o13", "zgashvtuvobqho", "c66b10ef01f1847512fee89609de964b73142d8f811661916ed17ad87df6868d");
-
+                this.con = DriverManager.getConnection("jdbc:postgresql://ec2-52-202-185-87.compute-1.amazonaws.com:5432/d3kpi243df7o13?sslmode=require", "zgashvtuvobqho", "c66b10ef01f1847512fee89609de964b73142d8f811661916ed17ad87df6868d");
 
                 /** Retorna um erro caso nao encontre o driver, ou alguma informacao sobre o mesmo esteja errada */
             } catch (ClassNotFoundException cnfe) {
                 System.out.println("Erro ao conectar o driver");
                 cnfe.printStackTrace();
+                return false;
             } catch (SQLException e) {
-                if(this.con==null)
-                    return false;
                 e.printStackTrace();
+                return false;
+
+
+            } catch(NoClassDefFoundError e){
+                e.printStackTrace();
+                return false;
+
             }
 
             return true;

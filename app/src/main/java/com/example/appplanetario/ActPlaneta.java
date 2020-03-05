@@ -18,13 +18,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActPlaneta extends AppCompatActivity {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ActPlaneta extends AppCompatActivity implements RemoverAstrosBackground.OnRemoverCompletedListener {
     private TextView txtID;
     private TextView txtNome;
     private TextView txtMassa;
     private TextView txtTamanho;
     private TextView txtGravidade;
     private TextView txtComposicao;
+    private TextView txtVelocidade;
     private String operacao;
     private Button btn;
     private Planeta planeta;
@@ -54,19 +58,22 @@ public class ActPlaneta extends AppCompatActivity {
         txtMassa = findViewById(R.id.txt_massa);
         txtGravidade = findViewById(R.id.txt_gravidade);
         txtComposicao = findViewById(R.id.txt_comp);
+        txtVelocidade = findViewById(R.id.txt_velocidade);
+
         btn = findViewById(R.id.btn_remover);
 
         planeta = (Planeta) getIntent().getSerializableExtra("planeta");
 
-        txtID.setText("ID: "+String.valueOf(planeta.getId()));
+        txtID.setText("ID: "+planeta.getId());
         txtNome.setText("Nome: "+planeta.getNome());
-        txtMassa.setText("Massa: "+String.valueOf(planeta.getMassa()));
-        txtTamanho.setText("Tamanho: "+String.valueOf(planeta.getTamanho()));
-        txtGravidade.setText("Gravidade: "+String.valueOf(planeta.getGravidade()));
+        txtMassa.setText("Massa: "+planeta.getPeso());
+        txtTamanho.setText("Tamanho: "+planeta.getTamanho());
+        txtGravidade.setText("Gravidade: "+planeta.getGravidade());
+        txtVelocidade.setText("Velocidade de Rotação: "+planeta.getVel_rotacao());
 
         String compos = "";
-        for(int i=0; i<planeta.composicao.size(); i++){
-            compos = compos + " "+planeta.composicao.get(i);
+        for(int i=0; i<planeta.composicao.length; i++){
+            compos = compos + " "+planeta.composicao[i];
         }
         txtComposicao.setText("Composição:"+compos);
 
@@ -83,24 +90,57 @@ public class ActPlaneta extends AppCompatActivity {
     }
 
     public void clickBtnRemover(View view){
-        boolean achou = true;
+
+        final Context a = this;
         AlertDialog.Builder dlg = new AlertDialog.Builder(this);
         dlg.setMessage("Tem certeza que deseja remover ?");
         dlg.setNegativeButton("Cancelar", null);
         dlg.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which){
-                boolean removeu = true;
-                //removeu = removerPlaneta(id); remove o planeta do banco
-                if(removeu){
-                    Toast.makeText(getApplicationContext(), "Planeta removido!", Toast.LENGTH_LONG).show();
-                    Intent it = new Intent(ActPlaneta.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Falha ao remover!", Toast.LENGTH_LONG).show();
-                }
+                RemoverAstrosBackground remover = new RemoverAstrosBackground(a, "Planeta");
+                remover.setOnRemoverCompletedListener((RemoverAstrosBackground.OnRemoverCompletedListener) a);
+                remover.execute(planeta.getId()+"");
             }
         });
         dlg.show();
+    }
+
+
+
+    @Override
+    public void onRemoverCompleted(String result) throws SQLException {
+
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-REMOVER")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao remover Planeta!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Planeta Removido!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActPlaneta.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+
+
     }
 }

@@ -15,7 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActAdicionarPlaneta extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener {
 
     private String operacao;
     private Button btn;
@@ -25,6 +28,7 @@ public class ActAdicionarPlaneta extends AppCompatActivity {
     private EditText form_tamanho;
     private EditText form_gravidade;
     private EditText form_composicao;
+    private EditText form_velocidade;
     private Planeta planeta;
 
 
@@ -53,6 +57,7 @@ public class ActAdicionarPlaneta extends AppCompatActivity {
         form_tamanho = findViewById(R.id.edt_tamanho);
         form_gravidade = findViewById(R.id.edt_gravidade);
         form_composicao = findViewById(R.id.edt_composicao);
+        form_velocidade = findViewById(R.id.edt_vel_rotacao);
 
         if(operacao.equals("Adicionar")){
             findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
@@ -66,31 +71,32 @@ public class ActAdicionarPlaneta extends AppCompatActivity {
             planeta = (Planeta) getIntent().getExtras().getSerializable("planeta");
             form_nome.setText(planeta.getNome());
             form_id.setText(""+planeta.getId());
-            form_massa.setText(""+planeta.getMassa());
+            form_massa.setText(""+planeta.getPeso());
             form_tamanho.setText(""+planeta.getTamanho());
+            form_velocidade.setText(""+planeta.getVel_rotacao());
             form_gravidade.setText(""+planeta.getGravidade());
             String compos = "";
-            for(int i=0; i<planeta.composicao.size(); i++){
+            for(int i=0; i<planeta.composicao.length; i++){
 
-                compos = compos +planeta.composicao.get(i)+", ";
+                compos = compos +planeta.composicao[i]+", ";
             }
             form_composicao.setText(compos);
         }
 
     }
     public void clickBtnAdicionarPlaneta(View view){
-       if(validaCampos()){
-          //add planeta no banco
-           AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-           dlg.setMessage("Planeta Adicionado");
-           dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int which) {
-                   Intent it = new Intent(ActAdicionarPlaneta.this, Act_Inicio.class);
-                   startActivity(it);
-                   finish();
-               }
-           });
-           dlg.show();
+        if(validaCampos()){
+            String nome = form_nome.getText().toString();
+            int id = Integer.parseInt(form_id.getText().toString());
+            float tam = Float.parseFloat(form_tamanho.getText().toString());
+            float peso = Float.parseFloat(form_massa.getText().toString());
+            float gravidade = Float.parseFloat(form_gravidade.getText().toString());
+            String[] comp = form_composicao.getText().toString().split(",");
+            float vel = Float.parseFloat(form_velocidade.getText().toString());
+            this.planeta = new Planeta(id, nome, tam, peso, gravidade, vel, comp);
+            AddPlanetaBackground add_planeta = new AddPlanetaBackground(this);
+            add_planeta.setOnAddPlanetaCompletedListener(this);
+            add_planeta.execute(this.planeta);
        }
     }
 
@@ -141,6 +147,13 @@ public class ActAdicionarPlaneta extends AppCompatActivity {
                                 form_composicao.requestFocus();
                                 Toast.makeText(this, "Campo composição vazio", Toast.LENGTH_SHORT).show();
                                 valid = false;
+                            }else{
+                                if(isCampoVazio(form_velocidade.getText().toString())){
+                                    form_velocidade.requestFocus();
+                                    Toast.makeText(this, "Campo Velocidade de Rotação vazio", Toast.LENGTH_SHORT).show();
+                                    valid = false;
+
+                                }
                             }
                         }
 
@@ -152,5 +165,41 @@ public class ActAdicionarPlaneta extends AppCompatActivity {
     }
     public boolean isCampoVazio(String valor) {
         return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+    }
+
+    @Override
+    public void onAddPlanetaCompleted(String result) {
+
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("ERRO-INSERCAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao inserir planeta!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Planeta inserido!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarPlaneta.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+
     }
 }

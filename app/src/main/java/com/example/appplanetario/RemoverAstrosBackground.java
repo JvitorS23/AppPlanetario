@@ -3,49 +3,76 @@ package com.example.appplanetario;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginBackground extends AsyncTask<String, Void, String>{
-
-    //interface para comunicação da tarefa com a activity
-    public interface OnLoginCompletedListener{
-        void onLoginCompleted(String result);
-    }
+public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
+    public String tipo;
 
-    private LoginBackground.OnLoginCompletedListener onLoginCompletedListener;
+    private RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener;
 
-    public void setOnLoginCompletedListener(LoginBackground.OnLoginCompletedListener onLoginCompletedListener){
-        this.onLoginCompletedListener = onLoginCompletedListener;
+    public RemoverAstrosBackground(Context mContext, String tipo) {
+        this.mContext = mContext;
+        this.tipo = tipo;
     }
 
-    public LoginBackground(Context context) {
-        super();
-        this.mContext = context;
+    public interface OnRemoverCompletedListener{
+        void onRemoverCompleted(String result) throws SQLException;
     }
+
+    public void setOnRemoverCompletedListener(RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener) {
+        this.onRemoverCompletedListener = onRemoverCompletedListener;
+    }
+
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Validando login...");
+        mDialog.setMessage("Removendo Astro...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
+
     @Override
-    protected String doInBackground(String ... user) {
-        if(!connect())
+    protected String doInBackground(String ... id) {
+        boolean conectou = false;
+        conectou = connect();
+
+        if(!conectou)
             return "ERRO-CONEXAO";
 
-        String sql = "SELECT username FROM astros.usuario WHERE username = ? AND password = md5(?)";
+        String sql = "";
+
+        int id_ = Integer.parseInt(id[0]);
+
+        switch (tipo){
+            case "Planeta":
+                sql = "DELETE FROM astros.planeta WHERE id_planeta = ?";
+                break;
+            case "Estrela":
+                sql = "DELETE FROM astros.estrela WHERE id_estrela = ?";
+                break;
+            case "Sistema Planetário":
+                sql = "DELETE FROM astros.sistema_planetario WHERE id_sistema = ?";
+                break;
+            case "Satélite Natural":
+                sql = "DELETE FROM astros.satelite_natural WHERE id_sn = ?";
+                break;
+            case "Galáxia":
+                sql = "DELETE FROM astros.galaxia WHERE id_galaxia = ?";
+                break;
+        }
+
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -58,31 +85,18 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setString(1, user[0]);
+            ps.setInt(1, id_);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            ps.setString(2, user[1]);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        String result = "";
+
+        String result = "OK";
 
         try {
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                result = "OK";
-
-
-            }else{
-                result = "ERRO-CONSULTA";
-
-            }
+            ps.execute();
 
         } catch (SQLException e) {
-            result = "ERRO-CONSULTA";
+            result = "ERRO-REMOVER";
             e.printStackTrace();
         }
 
@@ -98,15 +112,21 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
         return result;
     }
 
+
     @Override
     protected void onPostExecute(String str){
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onLoginCompletedListener != null){
+        if(onRemoverCompletedListener != null){
             //Chama o listener passando a string
-            onLoginCompletedListener.onLoginCompleted(str);
+            try{
+                onRemoverCompletedListener.onRemoverCompleted(str);
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
+
 
     protected boolean connect() {
 

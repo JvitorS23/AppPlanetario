@@ -1,51 +1,54 @@
 package com.example.appplanetario;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import com.example.appplanetario.SistemaPlanetario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginBackground extends AsyncTask<String, Void, String>{
-
-    //interface para comunicação da tarefa com a activity
-    public interface OnLoginCompletedListener{
-        void onLoginCompleted(String result);
-    }
+public class AddSistemaBackground extends AsyncTask<SistemaPlanetario, Void, String>{
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
+    private AddSistemaBackground.OnAddSistemaCompletedListener onAddSistemaCompletedListener;
 
-    private LoginBackground.OnLoginCompletedListener onLoginCompletedListener;
-
-    public void setOnLoginCompletedListener(LoginBackground.OnLoginCompletedListener onLoginCompletedListener){
-        this.onLoginCompletedListener = onLoginCompletedListener;
+    public AddSistemaBackground(Context mContext) {
+        this.mContext = mContext;
     }
 
-    public LoginBackground(Context context) {
-        super();
-        this.mContext = context;
+    public interface OnAddSistemaCompletedListener{
+        void onAddSistemaCompleted(String result);
+    }
+
+    public void setOnAddSistemaCompletedListener(OnAddSistemaCompletedListener onAddSistemaCompletedListener) {
+        this.onAddSistemaCompletedListener = onAddSistemaCompletedListener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Validando login...");
+        mDialog.setMessage("Adicionando Sistema Planetário...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
     @Override
-    protected String doInBackground(String ... user) {
-        if(!connect())
+    protected String doInBackground(SistemaPlanetario... sistema) {
+        boolean conectou = false;
+        conectou = connect();
+
+        if(!conectou)
             return "ERRO-CONEXAO";
 
-        String sql = "SELECT username FROM astros.usuario WHERE username = ? AND password = md5(?)";
+
+        String sql = "SELECT id_galaxia FROM astros.galaxia WHERE id_galaxia = ?";
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -58,15 +61,11 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setString(1, user[0]);
+            ps.setInt(1, sistema[0].getId_galaxia());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            ps.setString(2, user[1]);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         String result = "";
 
         try {
@@ -75,18 +74,44 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
             if(rs.next()){
                 result = "OK";
 
-
             }else{
-                result = "ERRO-CONSULTA";
-
-            }
+                return "ID_galaxia";            }
 
         } catch (SQLException e) {
             result = "ERRO-CONSULTA";
             e.printStackTrace();
         }
 
-        //encerra conexão
+        sql = "INSERT INTO astros.sistema_planetario VALUES(?, ?, ?, ?, ?, ?)";
+
+        //esse método passa o sql ao banco mas n executa
+        ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "ERRO-CONEXAO";
+        }
+
+        //Especifica aq os parâmetros da query na sequência das ?
+        try {
+            ps.setInt(1, sistema[0].getId());
+            ps.setInt(2, sistema[0].getId_galaxia());
+            ps.setInt(3, sistema[0].getQtde_planetas());
+            ps.setInt(4, sistema[0].getQtde_estrelas());
+            ps.setInt(5, sistema[0].getIdade());
+            ps.setString(6, sistema[0].getNome());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        result = "OK";
+        try {
+            ps.execute();
+        } catch (SQLException e) {
+            result = "ERRO-INSERCAO";
+            e.printStackTrace();
+        }
         try {
             if(this.con!=null){
                 this.con.close();
@@ -98,15 +123,18 @@ public class LoginBackground extends AsyncTask<String, Void, String>{
         return result;
     }
 
+
     @Override
     protected void onPostExecute(String str){
         super.onPostExecute(str);
+
         mDialog.dismiss();
-        if(onLoginCompletedListener != null){
+        if(onAddSistemaCompletedListener != null){
             //Chama o listener passando a string
-            onLoginCompletedListener.onLoginCompleted(str);
+            onAddSistemaCompletedListener.onAddSistemaCompleted(str);
         }
     }
+
 
     protected boolean connect() {
 
