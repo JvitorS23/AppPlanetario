@@ -159,7 +159,6 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
                     // Se encontrar instanciar estrela e passar para a activity modificar estrela
                     Intent it3 = new Intent(Act_Consulta.this, ActEstrela.class);
                     Estrela estrela = null;
-
                     try {
                         estrela = new Estrela(resultado.getInt("id_estrela"), resultado.getString("nome_estrela"),
                                 resultado.getInt("idade_estrela"), resultado.getFloat("dist_terra"),
@@ -176,7 +175,6 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
                     //Procurar sistema no banco
                     Intent it4 = new Intent(Act_Consulta.this, ActSistema.class);
                     SistemaPlanetario sistema = null;
-
                     try {
                         sistema = new SistemaPlanetario(resultado.getInt("id_sistema"),
                                 resultado.getString("nome_sistema"), resultado.getInt("qtd_planetas"),

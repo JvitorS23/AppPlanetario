@@ -84,7 +84,7 @@ public class ActAdicionarSatelite extends AppCompatActivity implements AddSateli
         if(validaCampos()){
             String nome = form_nome.getText().toString();
             int id = Integer.parseInt(form_id.getText().toString());
-            String[] comp = form_composicao.getText().toString().split(",");
+            String[] comp = form_composicao.getText().toString().replaceAll(" ", "").split(",");
             float tam = Float.parseFloat(form_tamanho.getText().toString());
             float peso = Float.parseFloat(form_massa.getText().toString());
             this.satelite = new SateliteNatural(id, nome, tam, peso, comp);
@@ -99,7 +99,7 @@ public class ActAdicionarSatelite extends AppCompatActivity implements AddSateli
         if(validaCampos()){
             String nome = form_nome.getText().toString();
             int id = Integer.parseInt(form_id.getText().toString());
-            String[] comp = form_composicao.getText().toString().split(",");
+            String[] comp = form_composicao.getText().toString().replaceAll(" ", "").split(",");
             float tam = Float.parseFloat(form_tamanho.getText().toString());
             float peso = Float.parseFloat(form_massa.getText().toString());
             this.satelite = new SateliteNatural(id, nome, tam, peso, comp);

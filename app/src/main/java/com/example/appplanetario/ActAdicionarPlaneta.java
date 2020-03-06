@@ -91,7 +91,7 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
             float tam = Float.parseFloat(form_tamanho.getText().toString());
             float peso = Float.parseFloat(form_massa.getText().toString());
             float gravidade = Float.parseFloat(form_gravidade.getText().toString());
-            String[] comp = form_composicao.getText().toString().split(",");
+            String[] comp = form_composicao.getText().toString().replaceAll(" ", "").split(",");
             float vel = Float.parseFloat(form_velocidade.getText().toString());
             this.planeta = new Planeta(id, nome, tam, peso, gravidade, vel, comp);
             AddPlanetaBackground add_planeta = new AddPlanetaBackground(this);
@@ -108,7 +108,7 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
             float tam = Float.parseFloat(form_tamanho.getText().toString());
             float peso = Float.parseFloat(form_massa.getText().toString());
             float gravidade = Float.parseFloat(form_gravidade.getText().toString());
-            String[] comp = form_composicao.getText().toString().split(",");
+            String[] comp = form_composicao.getText().toString().replaceAll(" ", "").split(",");
             float vel = Float.parseFloat(form_velocidade.getText().toString());
             this.planeta = new Planeta(id, nome, tam, peso, gravidade, vel, comp);
 

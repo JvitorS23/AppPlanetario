@@ -2,6 +2,7 @@ package com.example.appplanetario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Planeta extends Entidade implements Serializable {
    public float tamanho;
@@ -61,6 +62,17 @@ public class Planeta extends Entidade implements Serializable {
 
     public String[] getComposicao() {
         return composicao;
+    }
+
+    @Override
+    public String toString() {
+        return "Planeta{" +
+                "tamanho=" + tamanho +
+                ", peso=" + peso +
+                ", gravidade=" + gravidade +
+                ", vel_rotacao=" + vel_rotacao +
+                ", composicao=" + Arrays.toString(composicao) +
+                '}';
     }
 
     public void setComposicao(String[] composicao) {
