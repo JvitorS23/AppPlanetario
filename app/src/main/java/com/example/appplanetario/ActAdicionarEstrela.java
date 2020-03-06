@@ -21,7 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrelaBackground.OnAddEstrelaCompletedListener{
+public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrelaBackground.OnAddEstrelaCompletedListener, ModEstrelaBackground.OnModEstrelaCompletedListener{
 
 
 
@@ -135,18 +135,21 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
 
     public void clickBtnModificarEstrela(View view){
         if(validaCampos()){
-            //modificar estrela no banco
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Estrela Modificada");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarEstrela.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
 
+            ModEstrelaBackground modificar = new ModEstrelaBackground(this, (int)getIntent().getExtras().getSerializable("id"));
+            modificar.setOnModEstrelaCompletedListener(this);
+
+            int id = Integer.parseInt(form_id.getText().toString());
+            String nome = form_nome.getText().toString();
+            int idade = Integer.parseInt(form_idade.getText().toString());
+            float dist = Float.parseFloat(form_dist_terra.getText().toString());
+            float gravidade = Float.parseFloat(form_gravidade.getText().toString());
+            float tamanho = Float.parseFloat(form_tamanho.getText().toString());
+            radio_escolhido = findViewById(form_tipo.getCheckedRadioButtonId());
+            String tipo = radio_escolhido.getText().toString();
+            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo);
+
+            modificar.execute(this.estrela);
         }
     }
 
@@ -228,6 +231,37 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Sucesso!");
             dlg.setMessage("Estrela inserida!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarEstrela.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+    }
+
+    @Override
+    public void onModEstrelaCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("ERRO-MODIFICAR")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao modificar estrela!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Estrela modificada!");
             dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent it = new Intent(ActAdicionarEstrela.this, Act_Inicio.class);

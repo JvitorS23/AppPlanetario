@@ -21,6 +21,7 @@ public class ActSistema extends AppCompatActivity implements RemoverAstrosBackgr
     private TextView txtNome;
     private TextView txtQtdePlanetas;
     private TextView txtQtdeEstrelas;
+    private TextView txtIDGalaxia;
     private TextView txtIdade;
     private Button btn;
     private String operacao;
@@ -45,6 +46,7 @@ public class ActSistema extends AppCompatActivity implements RemoverAstrosBackgr
 
         txtID = findViewById(R.id.txt_id);
         txtNome = findViewById(R.id.txt_nome);
+        txtIDGalaxia = findViewById(R.id.txt_id_galaxia);
         txtQtdePlanetas = findViewById(R.id.txt_qtde_planetas);
         txtQtdeEstrelas = findViewById(R.id.txt_qtde_estrelas);
         txtIdade = findViewById(R.id.txt_idade);
@@ -52,6 +54,7 @@ public class ActSistema extends AppCompatActivity implements RemoverAstrosBackgr
 
         sistema = (SistemaPlanetario) getIntent().getSerializableExtra("sistema");
 
+        txtIDGalaxia.setText("ID Galáxia: "+sistema.getId_galaxia());
         txtID.setText("ID: "+sistema.getId());
         txtNome.setText("Nome: "+sistema.getNome()+"");
         txtQtdePlanetas.setText("Quantidade de Planetas: " +sistema.getQtde_planetas());

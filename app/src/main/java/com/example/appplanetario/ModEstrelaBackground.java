@@ -9,44 +9,48 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddGalaxiaBackground extends AsyncTask<Galaxia, Void, String> {
+public class ModEstrelaBackground extends AsyncTask<Estrela, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
-    private AddGalaxiaBackground.OnAddGalaxiaCompletedListener onAddGalaxiaCompletedListener;
+    public int id;
+    private ModEstrelaBackground.OnModEstrelaCompletedListener onModEstrelaCompletedListener;
 
-    public AddGalaxiaBackground(Context mContext) {
+    public ModEstrelaBackground(Context mContext, int id) {
+        this.id = id;
         this.mContext = mContext;
     }
 
-    public interface OnAddGalaxiaCompletedListener{
-        void onAddGalaxiaCompleted(String result);
+    public interface OnModEstrelaCompletedListener{
+        void onModEstrelaCompleted(String result);
     }
 
-    public void setOnAddGalaxiaCompletedListener(AddGalaxiaBackground.OnAddGalaxiaCompletedListener onAddGalaxiaCompletedListener) {
-        this.onAddGalaxiaCompletedListener = onAddGalaxiaCompletedListener;
+    public void setOnModEstrelaCompletedListener(ModEstrelaBackground.OnModEstrelaCompletedListener onModEstrelaCompletedListener) {
+        this.onModEstrelaCompletedListener = onModEstrelaCompletedListener;
     }
+
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Adicionando Galáxia...");
+        mDialog.setMessage("Modificando Estrela...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
 
     @Override
-    protected String doInBackground(Galaxia ... galaxia) {
+    protected String doInBackground(Estrela ... estrela) {
         boolean conectou = false;
         conectou = connect();
 
         if(!conectou)
             return "ERRO-CONEXAO";
 
-        String sql = "INSERT INTO astros.galaxia VALUES(?, ?, ?, ?)";
+
+        String sql = "UPDATE astros.estrela SET id_estrela=?, idade_estrela=?, dist_terra=?, nome_estrela=?, tam_estrela=?, gravidade_estrela=?, tipo_estrela=? WHERE id_estrela=?";
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -59,10 +63,15 @@ public class AddGalaxiaBackground extends AsyncTask<Galaxia, Void, String> {
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setInt(1, galaxia[0].getId());
-            ps.setInt(2, galaxia[0].getQtd_sistemas());
-            ps.setFloat(3, galaxia[0].getDist_terra());
-            ps.setString(4, galaxia[0].getNome());
+            ps.setInt(1, estrela[0].getId());
+            ps.setInt(2, estrela[0].getIdade());
+            ps.setFloat(3, estrela[0].getDist_terra());
+            ps.setString(4, estrela[0].getNome());
+            ps.setFloat(5, estrela[0].getTamanho());
+            ps.setFloat(6, estrela[0].getGravidade());
+            ps.setString(7, estrela[0].getTipo_estrela());
+            ps.setInt(8, this.id);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +81,7 @@ public class AddGalaxiaBackground extends AsyncTask<Galaxia, Void, String> {
         try {
             ps.execute();
         } catch (SQLException e) {
-            result = "ERRO-INSERCAO";
+            result = "ERRO-MODIFICAR";
             e.printStackTrace();
         }
         try {
@@ -86,22 +95,27 @@ public class AddGalaxiaBackground extends AsyncTask<Galaxia, Void, String> {
         return result;
     }
 
+
     @Override
     protected void onPostExecute(String str){
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onAddGalaxiaCompletedListener != null){
+        if(onModEstrelaCompletedListener != null){
             //Chama o listener passando a string
-            onAddGalaxiaCompletedListener.onAddGalaxiaCompleted(str);
+            onModEstrelaCompletedListener.onModEstrelaCompleted(str);
         }
     }
 
+
     protected boolean connect() {
+
         try {
             /** Pasando o nome do Driver do PostgreSQL */
             Class.forName("org.postgresql.Driver");
+
             /** Obtendo a conexao com o banco de dados*/
             this.con = DriverManager.getConnection("jdbc:postgresql://ec2-52-202-185-87.compute-1.amazonaws.com:5432/d3kpi243df7o13?sslmode=require", "zgashvtuvobqho", "c66b10ef01f1847512fee89609de964b73142d8f811661916ed17ad87df6868d");
+
             /** Retorna um erro caso nao encontre o driver, ou alguma informacao sobre o mesmo esteja errada */
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Erro ao conectar o driver");
@@ -113,4 +127,5 @@ public class AddGalaxiaBackground extends AsyncTask<Galaxia, Void, String> {
         }
         return true;
     }
+
 }

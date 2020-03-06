@@ -1,5 +1,6 @@
 package com.example.appplanetario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+
+import java.sql.Array;
+import java.sql.SQLException;
 
 public class ActListar extends AppCompatActivity {
     public String tipo;
@@ -30,9 +34,23 @@ public class ActListar extends AppCompatActivity {
             }
         });
 
-        //Acessar banco consultar todos os planetas e exibir na tela
+        switch (tipo) {
+            case "Planeta":
 
+                break;
+            case "Galáxia":
 
+                break;
+            case "Estrela":
+
+                break;
+            case "Sistema Planetário":
+
+                break;
+            case "Satélite Natural":
+
+                break;
+        }
 
     }
 

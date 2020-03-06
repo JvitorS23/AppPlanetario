@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener {
+public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener, ModPlanetaBackground.OnModPlanetaCompletedListener {
 
     private String operacao;
     private Button btn;
@@ -103,16 +103,18 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
     public void clickBtnModificarPlaneta(View view){
         if(validaCampos()){
             //modificar o planeta no banco
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Planeta Modificado");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarPlaneta.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
+            String nome = form_nome.getText().toString();
+            int id = Integer.parseInt(form_id.getText().toString());
+            float tam = Float.parseFloat(form_tamanho.getText().toString());
+            float peso = Float.parseFloat(form_massa.getText().toString());
+            float gravidade = Float.parseFloat(form_gravidade.getText().toString());
+            String[] comp = form_composicao.getText().toString().split(",");
+            float vel = Float.parseFloat(form_velocidade.getText().toString());
+            this.planeta = new Planeta(id, nome, tam, peso, gravidade, vel, comp);
+
+            ModPlanetaBackground modificar = new ModPlanetaBackground(this, (int)getIntent().getExtras().getSerializable("id"));
+            modificar.setOnModPlanetaCompletedListener(this);
+            modificar.execute(this.planeta);
         }
     }
 
@@ -201,5 +203,36 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
             dlg.show();
         }
 
+    }
+
+    @Override
+    public void onModPlanetaCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("ERRO-MODIFICAR")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao modificar planeta!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Planeta modificado!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarPlaneta.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
     }
 }

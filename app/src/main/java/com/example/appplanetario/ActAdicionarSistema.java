@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActAdicionarSistema extends AppCompatActivity implements AddSistemaBackground.OnAddSistemaCompletedListener {
+public class ActAdicionarSistema extends AppCompatActivity implements AddSistemaBackground.OnAddSistemaCompletedListener, ModSistemaBackground.OnModSistemaCompletedListener {
 
     private String operacao;
     private SistemaPlanetario sistema;
@@ -88,25 +88,22 @@ public class ActAdicionarSistema extends AppCompatActivity implements AddSistema
             add_sistema.setOnAddSistemaCompletedListener(this);
             add_sistema.execute(this.sistema);
         }
-
-
     }
 
     public void clickBtnModificarSistema(View view){
         if(validaCampos()){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setMessage("Sistema Planetário Modificado");
-            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent it = new Intent(ActAdicionarSistema.this, Act_Inicio.class);
-                    startActivity(it);
-                    finish();
-                }
-            });
-            dlg.show();
+            int id_sistema = Integer.parseInt(this.form_id.getText().toString());
+            String nome = this.form_nome.getText().toString();
+            int qtde_planetas = Integer.parseInt(this.form_qtde_planetas.getText().toString());
+            int qtde_estrelas = Integer.parseInt(this.form_qtde_estrelas.getText().toString());
+            int idade = Integer.parseInt(this.form_idade.getText().toString());
+            int id_galaxia = Integer.parseInt(this.form_galaxia.getText().toString());
 
+            this.sistema = new SistemaPlanetario(id_sistema, nome, qtde_planetas,qtde_estrelas, idade, id_galaxia);
+            ModSistemaBackground modificar = new ModSistemaBackground(this, (int)getIntent().getExtras().getSerializable("id"));
+            modificar.setOnModSistemaCompletedListener(this);
+            modificar.execute(this.sistema);
         }
-
     }
 
     public boolean validaCampos(){
@@ -152,7 +149,6 @@ public class ActAdicionarSistema extends AppCompatActivity implements AddSistema
         return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
     }
 
-
     @Override
     public void onAddSistemaCompleted(String result) {
         if(result.equals("ERRO-CONEXAO")){
@@ -185,6 +181,37 @@ public class ActAdicionarSistema extends AppCompatActivity implements AddSistema
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Sucesso!");
             dlg.setMessage("Sistema Planetário inserido!");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarSistema.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+        }
+    }
+
+    @Override
+    public void onModSistemaCompleted(String result) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("ERRO-MODIFICAR")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao modificar sistema planetário!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("OK")) {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Sucesso!");
+            dlg.setMessage("Sistema Planetário modificado!");
             dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     Intent it = new Intent(ActAdicionarSistema.this, Act_Inicio.class);

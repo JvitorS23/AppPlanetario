@@ -58,45 +58,34 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
             ConsultaAstrosBackground consulta = null;
             switch (tipo) {
                 case "Planeta":
-
-
                     //Procurar planeta no banco
-
                      consulta = new ConsultaAstrosBackground(this, "Planeta");
                      consulta.setOnConsultaCompletedListener(this);
                      consulta.execute(this.edtId.getText().toString());
-
-
                     break;
                 case "Galáxia":
                     //Procurar galxia no banco
                     consulta = new ConsultaAstrosBackground(this, "Galáxia");
                     consulta.setOnConsultaCompletedListener(this);
                     consulta.execute(this.edtId.getText().toString());
-
-
                     break;
                 case "Estrela":
                     //Procurar estrela no banco
                     consulta = new ConsultaAstrosBackground(this, "Estrela");
                     consulta.setOnConsultaCompletedListener(this);
                     consulta.execute(this.edtId.getText().toString());
-
                     break;
                 case "Sistema Planetário":
                     //Procurar sistema no banco
                     consulta = new ConsultaAstrosBackground(this, "Sistema Planetário");
                     consulta.setOnConsultaCompletedListener(this);
                     consulta.execute(this.edtId.getText().toString());
-
-
                     break;
                 case "Satélite Natural":
                     //Procurar satélite no banco
                     consulta = new ConsultaAstrosBackground(this, "Satélite Natural");
                     consulta.setOnConsultaCompletedListener(this);
                     consulta.execute(this.edtId.getText().toString());
-
                     break;
             }
         }
