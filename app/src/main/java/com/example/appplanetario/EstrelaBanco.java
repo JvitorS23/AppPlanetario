@@ -70,7 +70,7 @@ public class EstrelaBanco extends AsyncTask<String, Void, String> {
                 break;
         }
 
-
+            //Teste
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
