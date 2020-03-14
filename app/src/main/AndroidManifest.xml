@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.appplanetario">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ActSatelite"
+            android:label="@string/title_activity_act_satelite"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ActSistema"
+            android:label="@string/title_activity_act_sistema"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActGalaxia"
+            android:label="@string/title_activity_act_galaxia"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActEstrela"
+            android:label="@string/title_activity_act_estrela"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActAdicionarEstrela"
+            android:label="@string/title_activity_act_adicionar_estrela"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActAdicionarSatelite"
+            android:label="@string/title_activity_act_adicionar_satelite"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActAdicionarSistema"
+            android:label="@string/title_activity_act_adicionar_sistema"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActAdicionarGalaxia"
+            android:label="@string/title_activity_act_adicionar_galaxia"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActRemover"
+            android:label="@string/title_activity_act_remover"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActAdicionarPlaneta"
+            android:label="@string/title_activity_act_adicionar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActListar"
+            android:label="@string/title_activity_act_listar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Act_Modificar"
+            android:label="Modificar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActPlaneta"
+            android:label="@string/title_activity_act_planeta"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Act_Consulta"
+            android:label="@string/title_activity_act__consulta"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Act_Inicio"
+            android:label="@string/title_activity_act__inicio"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActCad"
+            android:label="@string/title_activity_act_cad"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActLogin"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+</manifest>

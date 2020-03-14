@@ -1,0 +1,152 @@
+package com.example.appplanetario;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class ActAdicionarSistema extends AppCompatActivity {
+
+    private String operacao;
+    private SistemaPlanetario sistema;
+    private Button btn;
+    private EditText form_nome;
+    private EditText form_id;
+    private EditText form_qtde_planetas;
+    private EditText form_qtde_estrelas;
+    private EditText form_idade;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_adicionar_sistema);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow);
+        operacao = "";
+        operacao = (String) getIntent().getSerializableExtra("operacao");
+        toolbar.setTitle(operacao+" Sistema Planetário");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        form_nome = findViewById(R.id.edtNome);
+        form_id = findViewById(R.id.edtID);
+        form_qtde_estrelas = findViewById(R.id.edt_qtde_estrelas);
+        form_qtde_planetas = findViewById(R.id.edt_qtde_planetas);
+        form_idade = findViewById(R.id.edt_idade);
+
+        if(operacao.equals("Adicionar")){
+            findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
+            btn = (Button)findViewById(R.id.btn_adicionar);
+            btn.setVisibility(View.VISIBLE);
+
+        }
+        if(operacao.equals("Modificar")) {
+            findViewById(R.id.btn_adicionar).setVisibility(View.INVISIBLE);
+            btn = (Button) findViewById(R.id.btn_modificar);
+            btn.setVisibility(View.VISIBLE);
+            sistema = (SistemaPlanetario) getIntent().getExtras().getSerializable("sistema");
+            form_nome.setText(sistema.getNome());
+
+            form_id.setText(sistema.getId()+"");
+            form_qtde_planetas.setText(sistema.getQtde_planetas()+"");
+            form_qtde_estrelas.setText(sistema.getQtde_estrelas()+"");
+            form_idade.setText(sistema.getIdade()+"");
+        }
+    }
+
+    public void clickBtnAdicionarSistema(View view){
+        if(validaCampos()){
+
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setMessage("Sistema Planetário Adicionado");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarSistema.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+
+        }
+
+
+    }
+
+    public void clickBtnModificarSistema(View view){
+        if(validaCampos()){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setMessage("Sistema Planetário Modificado");
+            dlg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent it = new Intent(ActAdicionarSistema.this, Act_Inicio.class);
+                    startActivity(it);
+                    finish();
+                }
+            });
+            dlg.show();
+
+        }
+
+    }
+
+    public boolean validaCampos(){
+        boolean valid=true;
+        if(isCampoVazio(form_nome.getText().toString())){
+            form_nome.requestFocus();
+            Toast.makeText(this, "Campo nome vazio", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }else {
+            if (isCampoVazio(form_id.getText().toString())) {
+                form_id.requestFocus();
+                Toast.makeText(this, "Campo id vazio", Toast.LENGTH_SHORT).show();
+                valid = false;
+            }else{
+                if(isCampoVazio(form_qtde_planetas.getText().toString())){
+                    form_qtde_planetas.requestFocus();
+                    Toast.makeText(this, "Campo Quantidade de planetas vazio", Toast.LENGTH_SHORT).show();
+                    valid = false;
+                }else{
+                    if(isCampoVazio(form_qtde_estrelas.getText().toString())){
+                        form_qtde_estrelas.requestFocus();
+                        Toast.makeText(this, "Campo Quantidade de estrelas vazio", Toast.LENGTH_SHORT).show();
+                        valid = false;
+                    }else{
+                        if(isCampoVazio(form_idade.getText().toString())){
+                            form_idade.requestFocus();
+                            Toast.makeText(this, "Campo idade vazio", Toast.LENGTH_SHORT).show();
+                            valid = false;
+                        }
+
+                    }
+                }
+            }
+        }
+        return valid;
+    }
+    public boolean isCampoVazio(String valor) {
+        return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+    }
+
+
+
+
+
+}
