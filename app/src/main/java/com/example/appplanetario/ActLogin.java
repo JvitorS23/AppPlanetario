@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,7 +32,7 @@ public class ActLogin extends AppCompatActivity implements LoginBackground.OnLog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_login);
-        getSupportActionBar().hide(); //Esta linha contém o código necessário  para não aparece toolbar.
+        getSupportActionBar().hide(); //Esta linha contém o código necessário  para não aparecer toolbar.
 
         edtUser = (EditText) findViewById(R.id.inputUser);
         edtPass = (EditText) findViewById(R.id.inputPass);
@@ -50,7 +51,9 @@ public class ActLogin extends AppCompatActivity implements LoginBackground.OnLog
 
     }
     public void clickBtnLogin(View view) {
-        ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtPass.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtPass.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(edtUser.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         int i = validaCampos();

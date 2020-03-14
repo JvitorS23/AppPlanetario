@@ -30,7 +30,7 @@ public class Act_Modificar extends AppCompatActivity implements ConsultaAstrosBa
         toolbar.setNavigationIcon(R.drawable.ic_arrow);
         tipo = "Entidade";
         tipo = (String) getIntent().getSerializableExtra("tipo");
-        System.out.println(tipo);
+
         toolbar.setTitle("Modificar " + tipo);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

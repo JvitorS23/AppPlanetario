@@ -88,7 +88,7 @@ public class ActListar extends AppCompatActivity implements ListarBackground.OnL
 
     @Override
     public void onListarCompleted(ResultSet resultado, String result) {
-        System.out.println(result);
+
         if(result.equals("ERRO-CONEXAO")){
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Erro!");

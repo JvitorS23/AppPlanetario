@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.Act_Consulta;
 import com.example.appplanetario.ActListar;
+import com.example.appplanetario.ActListarSistemasDeUmaGalaxia;
 import com.example.appplanetario.R;
 
 public class ListarFragment extends Fragment {
@@ -21,6 +21,7 @@ public class ListarFragment extends Fragment {
     private Button btnGalaxia;
     private Button btnSatelite;
     private Button btnEstrela;
+    private Button btnSistemasDeUmaGalaxia;
 
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +101,22 @@ public class ListarFragment extends Fragment {
                 }
             }
         });
+
+
+        btnSistemasDeUmaGalaxia = root.findViewById(R.id.btn_sistemas_de_uma_galaxia);
+        btnSistemasDeUmaGalaxia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarSistemasDeUmaGalaxia.class);
+                    it.putExtra("tipo", "Sistemas de uma Galáxia");
+                    startActivity(it);
+                }
+            }
+        });
+
         return root;
     }
 

@@ -68,6 +68,9 @@ public class ListarBackground extends AsyncTask<String, Void, ResultSet> {
             case "Satélite Natural":
                 sql = "SELECT * FROM astros.satelite_natural";
                 break;
+            case "Sistemas de uma Galáxia":
+                sql = "select id_sistema, id_galaxia, qtd_planetas, qtd_estrelas, idade_sistema, nome_sistema from astros.sistema_planetario join astros.galaxia using(id_galaxia) where id_galaxia="+tipo[1];
+                break;
         }
 
         //esse método passa o sql ao banco mas n executa
@@ -76,7 +79,8 @@ public class ListarBackground extends AsyncTask<String, Void, ResultSet> {
             ps = con.prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-            this.erro = "ERRO-CONEXAO";        }
+            this.erro = "ERRO-CONEXAO";
+        }
 
 
         ResultSet resultado = null;
