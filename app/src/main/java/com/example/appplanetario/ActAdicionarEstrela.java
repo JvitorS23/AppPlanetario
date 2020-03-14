@@ -38,6 +38,7 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
     private RadioGroup form_tipo;
     private RadioButton radio_escolhido;
     private Estrela estrela;
+    private RadioButton btn_radio_morte;
 
 
     @SuppressLint("WrongViewCast")
@@ -69,8 +70,7 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
 
         form_idade = findViewById(R.id.edtIdade);
         form_tipo = findViewById(R.id.tipoEstrela);
-
-
+        btn_radio_morte = findViewById(R.id.btnRadioMorte);
 
         if(operacao.equals("Adicionar")){
             findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
@@ -82,6 +82,7 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
             findViewById(R.id.btn_adicionar).setVisibility(View.INVISIBLE);
             btn = (Button)findViewById(R.id.btn_modificar);
             btn.setVisibility(View.VISIBLE);
+
             estrela = (Estrela) getIntent().getExtras().getSerializable("estrela");
             form_nome.setText(estrela.getNome());
             form_id.setText(""+estrela.getId());
@@ -89,28 +90,33 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
             form_gravidade.setText(""+estrela.getGravidade());
             form_dist_terra.setText(""+estrela.getDist_terra());
             form_idade.setText(""+estrela.getIdade());
+
             if(estrela.getTipo_estrela().equals("Anã Vermelha")){
                 radio_escolhido = findViewById(R.id.tipoAnaVermelha);
                 radio_escolhido.setChecked(true);
+                btn_radio_morte.setVisibility(View.INVISIBLE);
             }
             if(estrela.getTipo_estrela().equals("Anã Branca")){
                 radio_escolhido = findViewById(R.id.tipoAnaBranca);
                 radio_escolhido.setChecked(true);
+                btn_radio_morte.setVisibility(View.INVISIBLE);
             }
             if(estrela.getTipo_estrela().equals("Estrela Binária")){
                 radio_escolhido = findViewById(R.id.tipoBinaria);
                 radio_escolhido.setChecked(true);
+                btn_radio_morte.setVisibility(View.INVISIBLE);
             }
             if(estrela.getTipo_estrela().equals("Gigante Azul")){
                 radio_escolhido = findViewById(R.id.tipoGiganteAzul);
                 radio_escolhido.setChecked(true);
+                btn_radio_morte.setVisibility(View.INVISIBLE);
             }
             if(estrela.getTipo_estrela().equals("Gigante Vermelha")){
                 radio_escolhido = findViewById(R.id.tipoGiganteVermelha);
                 radio_escolhido.setChecked(true);
             }
         }
-
+        System.out.println("BOTÃO ESCOLHIDO: " + ((RadioButton)findViewById(form_tipo.getCheckedRadioButtonId())).getText().toString());
     }
 
     public void clickBtnAdicionarEstrela(View view){
@@ -124,7 +130,8 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
             float tamanho = Float.parseFloat(form_tamanho.getText().toString());
             radio_escolhido = findViewById(form_tipo.getCheckedRadioButtonId());
             String tipo = radio_escolhido.getText().toString();
-            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo);
+            boolean morte = btn_radio_morte.isChecked();
+            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo, morte);
             AddEstrelaBackground add_estrela = new AddEstrelaBackground(this);
             add_estrela.setOnAddEstrelaCompletedListener(this);
             add_estrela.execute(this.estrela);
@@ -147,7 +154,8 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
             float tamanho = Float.parseFloat(form_tamanho.getText().toString());
             radio_escolhido = findViewById(form_tipo.getCheckedRadioButtonId());
             String tipo = radio_escolhido.getText().toString();
-            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo);
+            boolean morte = btn_radio_morte.isChecked();
+            this.estrela = new Estrela(id, nome, idade, dist, gravidade, tamanho, tipo, morte);
 
             modificar.execute(this.estrela);
         }

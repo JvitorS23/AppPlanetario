@@ -39,7 +39,7 @@ public class ActListar extends AppCompatActivity implements ListarBackground.OnL
                 finish();
             }
         });
-        lista = findViewById(R.id.lista);
+        lista = findViewById(R.id.lista_buracos);
         ListarBackground listar = new ListarBackground(this);
         listar.setOnListarCompletedListener(this);
         listar.execute(tipo);
@@ -153,7 +153,7 @@ public class ActListar extends AppCompatActivity implements ListarBackground.OnL
                             estrela = new Estrela(resultado.getInt("id_estrela"), resultado.getString("nome_estrela"),
                                     resultado.getInt("idade_estrela"), resultado.getFloat("dist_terra"),
                                     resultado.getFloat("gravidade_estrela"), resultado.getFloat("tam_estrela"),
-                                    resultado.getString("tipo_estrela"));
+                                    resultado.getString("tipo_estrela"), resultado.getBoolean("morte"));
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }

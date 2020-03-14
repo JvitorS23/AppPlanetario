@@ -69,6 +69,9 @@
     <string name="title_activity_act_galaxia">ActGalaxia</string>
     <string name="title_activity_act_sistema">ActSistema</string>
     <string name="title_activity_act_satelite">ActSatelite</string>
+    <string name="btn_radio_morreu">Morreu</string>
+    <string name="btn_lista_buraco_negro">Buracos Negros</string>
+    <string name="btn_remover_buraco">Remover</string>
 
 
 </resources>

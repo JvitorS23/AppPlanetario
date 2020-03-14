@@ -27,7 +27,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
-        android:id="@+id/lista"
+        android:id="@+id/lista_buracos"
         android:layout_width="409dp"
         android:layout_height="601dp"
         android:layout_marginStart="32dp"

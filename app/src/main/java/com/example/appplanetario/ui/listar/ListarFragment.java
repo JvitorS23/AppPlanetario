@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.appplanetario.ActListar;
+import com.example.appplanetario.ActListarBuracosNegros;
 import com.example.appplanetario.ActListarSistemasDeUmaGalaxia;
 import com.example.appplanetario.R;
 
@@ -22,6 +23,7 @@ public class ListarFragment extends Fragment {
     private Button btnSatelite;
     private Button btnEstrela;
     private Button btnSistemasDeUmaGalaxia;
+    private Button btnBuracosNegros;
 
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +114,20 @@ public class ListarFragment extends Fragment {
                 if (act != null) {
                     Intent it = new Intent(act, ActListarSistemasDeUmaGalaxia.class);
                     it.putExtra("tipo", "Sistemas de uma Galáxia");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnBuracosNegros = root.findViewById(R.id.btn_buracos_negros);
+        btnBuracosNegros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarBuracosNegros.class);
+                    it.putExtra("tipo", "Buracos Negros");
                     startActivity(it);
                 }
             }

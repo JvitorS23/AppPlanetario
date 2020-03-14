@@ -160,7 +160,7 @@ public class Act_Modificar extends AppCompatActivity implements ConsultaAstrosBa
                         estrela = new Estrela(resultado.getInt("id_estrela"), resultado.getString("nome_estrela"),
                                 resultado.getInt("idade_estrela"), resultado.getFloat("dist_terra"),
                                 resultado.getFloat("gravidade_estrela"), resultado.getFloat("tam_estrela"),
-                                resultado.getString("tipo_estrela"));
+                                resultado.getString("tipo_estrela"), resultado.getBoolean("morte"));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

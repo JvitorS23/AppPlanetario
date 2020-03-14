@@ -12,13 +12,14 @@ public class Estrela extends Entidade implements Serializable {
     public String tipo_estrela;
     public boolean morte;
 
-    public Estrela(int id, String nome, int idade, float dist_terra, float gravidade, float tamanho, String tipo_estrela) {
+    public Estrela(int id, String nome, int idade, float dist_terra, float gravidade, float tamanho, String tipo_estrela, boolean morte) {
         super(id, nome);
         this.idade = idade;
         this.dist_terra = dist_terra;
         this.gravidade = gravidade;
         this.tamanho = tamanho;
         this.tipo_estrela = tipo_estrela;
+        this.morte = morte;
     }
 
     public boolean isMorte() {
@@ -68,5 +69,11 @@ public class Estrela extends Entidade implements Serializable {
 
     public void setTipo_estrela(String tipo_estrela) {
         this.tipo_estrela = tipo_estrela;
+    }
+
+    @Override
+    public String toString() {
+        return "ID = " + id +
+             "\nNome = " + nome;
     }
 }

@@ -50,7 +50,7 @@ public class ModEstrelaBackground extends AsyncTask<Estrela, Void, String> {
             return "ERRO-CONEXAO";
 
 
-        String sql = "UPDATE astros.estrela SET id_estrela=?, idade_estrela=?, dist_terra=?, nome_estrela=?, tam_estrela=?, gravidade_estrela=?, tipo_estrela=? WHERE id_estrela=?";
+        String sql = "UPDATE astros.estrela SET id_estrela=?, idade_estrela=?, dist_terra=?, nome_estrela=?, tam_estrela=?, gravidade_estrela=?, tipo_estrela=?, morte = ? WHERE id_estrela=?";
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
@@ -70,7 +70,8 @@ public class ModEstrelaBackground extends AsyncTask<Estrela, Void, String> {
             ps.setFloat(5, estrela[0].getTamanho());
             ps.setFloat(6, estrela[0].getGravidade());
             ps.setString(7, estrela[0].getTipo_estrela());
-            ps.setInt(8, this.id);
+            ps.setBoolean(8, estrela[0].isMorte());
+            ps.setInt(9, this.id);
 
 
         } catch (SQLException e) {
