@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <EditText
-        android:id="@+id/edt_id"
+        android:id="@+id/edt_id_pertencido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -57,7 +57,7 @@
         android:text="@string/modificar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_id" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_id_pertencido" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

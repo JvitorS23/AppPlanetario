@@ -4,9 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -55,12 +52,12 @@ public class ActAdicionarSistema extends AppCompatActivity implements AddSistema
 
         if(operacao.equals("Adicionar")){
             findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
-            btn = (Button)findViewById(R.id.btn_adicionar);
+            btn = (Button)findViewById(R.id.btn_remover_pertencimento);
             btn.setVisibility(View.VISIBLE);
 
         }
         if(operacao.equals("Modificar")) {
-            findViewById(R.id.btn_adicionar).setVisibility(View.INVISIBLE);
+            findViewById(R.id.btn_remover_pertencimento).setVisibility(View.INVISIBLE);
             btn = (Button) findViewById(R.id.btn_modificar);
             btn.setVisibility(View.VISIBLE);
             sistema = (SistemaPlanetario) getIntent().getExtras().getSerializable("sistema");

@@ -37,7 +37,7 @@ public class ConsultaAstrosBackground extends AsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Buscando Astro...");
+        mDialog.setMessage("Buscando "+tipo+"...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
