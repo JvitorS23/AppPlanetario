@@ -13,8 +13,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ActRemoverOrbita"></activity>
         <activity android:name=".ActAddOrbita" />
-        <activity android:name=".ActRemoverPertence" />
-        <activity android:name=".ActAddPertence" />
+        <activity android:name=".ActRemoverPertence"
+            android:theme="@style/AppTheme.NoActionBar" />/>
+        <activity android:name=".ActAddPertence"
+            android:theme="@style/AppTheme.NoActionBar" />/>
         <activity android:name=".ActBuracoNegro" />
         <activity android:name=".ActListarBuracosNegros" />
         <activity

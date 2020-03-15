@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class Act_Modificar extends AppCompatActivity implements ConsultaAstrosBackground.OnConsultaCompletedListener{
@@ -40,7 +39,7 @@ public class Act_Modificar extends AppCompatActivity implements ConsultaAstrosBa
             }
         });
         txtID = findViewById(R.id.txt_id);
-        edtId = findViewById(R.id.edt_id);
+        edtId = findViewById(R.id.edt_id_pertencido);
         txtID.setText("ID "+tipo);
 
     }

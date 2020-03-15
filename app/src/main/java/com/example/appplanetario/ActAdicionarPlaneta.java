@@ -9,14 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener, ModPlanetaBackground.OnModPlanetaCompletedListener {
 
@@ -61,11 +57,11 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
 
         if(operacao.equals("Adicionar")){
             findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
-            btn = (Button)findViewById(R.id.btn_adicionar);
+            btn = (Button)findViewById(R.id.btn_remover_pertencimento);
             btn.setVisibility(View.VISIBLE);
         }
         if(operacao.equals("Modificar")){
-            findViewById(R.id.btn_adicionar).setVisibility(View.INVISIBLE);
+            findViewById(R.id.btn_remover_pertencimento).setVisibility(View.INVISIBLE);
             btn = (Button)findViewById(R.id.btn_modificar);
             btn.setVisibility(View.VISIBLE);
             planeta = (Planeta) getIntent().getExtras().getSerializable("planeta");

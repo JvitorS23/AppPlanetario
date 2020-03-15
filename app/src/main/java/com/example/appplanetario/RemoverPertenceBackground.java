@@ -7,29 +7,28 @@ import android.os.AsyncTask;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
+public class RemoverPertenceBackground extends AsyncTask<String, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
     public String tipo;
 
-    private RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener;
+    private RemoverPertenceBackground.OnRemoverPertenceCompletedListener onRemoverPertenceCompletedListener;
 
-    public RemoverAstrosBackground(Context mContext, String tipo) {
+    public RemoverPertenceBackground(Context mContext, String tipo) {
         this.mContext = mContext;
         this.tipo = tipo;
     }
 
-    public interface OnRemoverCompletedListener{
-        void onRemoverCompleted(String result) throws SQLException;
+    public interface OnRemoverPertenceCompletedListener{
+        void onRemoverPertenceCompleted(String result) ;
     }
 
-    public void setOnRemoverCompletedListener(RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener) {
-        this.onRemoverCompletedListener = onRemoverCompletedListener;
+    public void setOnRemoverPertenceCompletedListener(RemoverPertenceBackground.OnRemoverPertenceCompletedListener onRemoverPertenceCompletedListener) {
+        this.onRemoverPertenceCompletedListener = onRemoverPertenceCompletedListener;
     }
 
 
@@ -37,7 +36,7 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Removendo Astro...");
+        mDialog.setMessage("Removendo Pertencimento...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
@@ -53,31 +52,21 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
         String sql = "";
 
-        int id_ = Integer.parseInt(id[0]);
+        int id_sistema = Integer.parseInt(id[0]);
+        int id_pertence = Integer.parseInt(id[1]);
 
-        switch (tipo){
-            case "Planeta":
-                sql = "DELETE FROM astros.planeta WHERE id_planeta = ?";
-                break;
-            case "Estrela":
-                sql = "DELETE FROM astros.estrela WHERE id_estrela = ?";
-                break;
-            case "Sistema Planetário":
-                sql = "DELETE FROM astros.sistema_planetario WHERE id_sistema = ?";
-                break;
-            case "Satélite Natural":
-                sql = "DELETE FROM astros.satelite_natural WHERE id_sn = ?";
-                break;
-            case "Galáxia":
-                sql = "DELETE FROM astros.galaxia WHERE id_galaxia = ?";
-                break;
-        }
+      if(tipo.equals("Planeta")){
+          sql = "DELETE FROM astros.sistema_planeta WHERE id_sistema = ? and id_planeta = ?";
 
+      }else{
+          sql = "DELETE FROM astros.sistema_estrela WHERE id_sistema = ? and id_estrela = ?";
+      }
 
         //esse método passa o sql ao banco mas n executa
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
+
         } catch (SQLException e) {
             e.printStackTrace();
             return "ERRO-CONEXAO";
@@ -85,7 +74,8 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setInt(1, id_);
+            ps.setInt(1, id_sistema);
+            ps.setInt(2, id_pertence);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,9 +84,9 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
         try {
             int a = ps.executeUpdate();
+
             if(a==0)
                 result = "ERRO-REMOVER";
-
 
         } catch (SQLException e) {
             result = "ERRO-REMOVER";
@@ -120,13 +110,9 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String str){
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onRemoverCompletedListener != null){
+        if(onRemoverPertenceCompletedListener != null){
             //Chama o listener passando a string
-            try{
-                onRemoverCompletedListener.onRemoverCompleted(str);
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
+            onRemoverPertenceCompletedListener.onRemoverPertenceCompleted(str);
         }
     }
 

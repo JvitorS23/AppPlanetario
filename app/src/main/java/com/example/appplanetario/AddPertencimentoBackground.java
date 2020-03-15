@@ -10,72 +10,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
+public class AddPertencimentoBackground extends AsyncTask<String, Void, String> {
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
-    public String tipo;
+    private AddPertencimentoBackground.OnAddPertencimentoCompletedListener onAddPertencimentoCompletedListener;
 
-    private RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener;
-
-    public RemoverAstrosBackground(Context mContext, String tipo) {
+    public AddPertencimentoBackground(Context mContext) {
         this.mContext = mContext;
-        this.tipo = tipo;
     }
 
-    public interface OnRemoverCompletedListener{
-        void onRemoverCompleted(String result) throws SQLException;
+    public interface OnAddPertencimentoCompletedListener {
+        void onAddPertencimentoCompleted(String result);
     }
 
-    public void setOnRemoverCompletedListener(RemoverAstrosBackground.OnRemoverCompletedListener onRemoverCompletedListener) {
-        this.onRemoverCompletedListener = onRemoverCompletedListener;
+    public void setOnAddPertencimentoCompletedListener(AddPertencimentoBackground.OnAddPertencimentoCompletedListener onAddPertencimentoCompletedListener) {
+        this.onAddPertencimentoCompletedListener = onAddPertencimentoCompletedListener;
     }
-
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Removendo Astro...");
+        mDialog.setMessage("Adicionando Pertencimento...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
 
-
     @Override
-    protected String doInBackground(String ... id) {
+    protected String doInBackground(String... ids) {
         boolean conectou = false;
         conectou = connect();
-
-        if(!conectou)
+        if (!conectou)
             return "ERRO-CONEXAO";
 
         String sql = "";
+        PreparedStatement ps = null;
+        String result = "";
 
-        int id_ = Integer.parseInt(id[0]);
-
-        switch (tipo){
-            case "Planeta":
-                sql = "DELETE FROM astros.planeta WHERE id_planeta = ?";
-                break;
-            case "Estrela":
-                sql = "DELETE FROM astros.estrela WHERE id_estrela = ?";
-                break;
-            case "Sistema Planetário":
-                sql = "DELETE FROM astros.sistema_planetario WHERE id_sistema = ?";
-                break;
-            case "Satélite Natural":
-                sql = "DELETE FROM astros.satelite_natural WHERE id_sn = ?";
-                break;
-            case "Galáxia":
-                sql = "DELETE FROM astros.galaxia WHERE id_galaxia = ?";
-                break;
+        if(ids[0].equals("Planeta")){
+            sql = "INSERT INTO astros.sistema_planeta VALUES(?, ?)";
+        }else{
+            sql = "INSERT INTO astros.sistema_estrela VALUES(?, ?)";
         }
 
-
         //esse método passa o sql ao banco mas n executa
-        PreparedStatement ps = null;
+        ps = null;
         try {
             ps = con.prepareStatement(sql);
         } catch (SQLException e) {
@@ -85,27 +66,22 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
         //Especifica aq os parâmetros da query na sequência das ?
         try {
-            ps.setInt(1, id_);
+            ps.setInt(1, Integer.parseInt(ids[1]));
+            ps.setInt(2, Integer.parseInt(ids[2]));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        String result = "OK";
-
+        result = "OK";
         try {
-            int a = ps.executeUpdate();
-            if(a==0)
-                result = "ERRO-REMOVER";
-
-
+            ps.execute();
         } catch (SQLException e) {
-            result = "ERRO-REMOVER";
+            result = "ERRO-INSERCAO";
             e.printStackTrace();
         }
-
-        //encerra conexão
         try {
-            if(this.con!=null){
+            if (this.con != null) {
                 this.con.close();
             }
 
@@ -117,16 +93,12 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
 
 
     @Override
-    protected void onPostExecute(String str){
+    protected void onPostExecute(String str) {
         super.onPostExecute(str);
         mDialog.dismiss();
-        if(onRemoverCompletedListener != null){
+        if (onAddPertencimentoCompletedListener != null) {
             //Chama o listener passando a string
-            try{
-                onRemoverCompletedListener.onRemoverCompleted(str);
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
+            onAddPertencimentoCompletedListener.onAddPertencimentoCompleted(str);
         }
     }
 
@@ -141,14 +113,11 @@ public class RemoverAstrosBackground  extends AsyncTask<String, Void, String> {
             this.con = DriverManager.getConnection("jdbc:postgresql://ec2-52-202-185-87.compute-1.amazonaws.com:5432/d3kpi243df7o13?sslmode=require", "zgashvtuvobqho", "c66b10ef01f1847512fee89609de964b73142d8f811661916ed17ad87df6868d");
 
             /** Retorna um erro caso nao encontre o driver, ou alguma informacao sobre o mesmo esteja errada */
-        } catch (ClassNotFoundException cnfe) {
+        } catch (Exception e) {
             System.out.println("Erro ao conectar o driver");
-            cnfe.printStackTrace();
-        } catch (SQLException e) {
-            if(this.con==null)
-                return false;
             e.printStackTrace();
         }
         return true;
     }
+
 }

@@ -1,12 +1,7 @@
 package com.example.appplanetario;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,8 +15,6 @@ import android.widget.Toast;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBackground.OnConsultaCompletedListener{
     private TextView txtID;
@@ -45,7 +38,7 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
             }
         });
         txtID = findViewById(R.id.txt_id);
-        edtId = findViewById(R.id.edt_id);
+        edtId = findViewById(R.id.edt_id_pertencido);
         txtID.setText("ID "+tipo);
 
     }
