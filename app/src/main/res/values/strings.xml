@@ -72,6 +72,8 @@
     <string name="btn_radio_morreu">Morreu</string>
     <string name="btn_lista_buraco_negro">Buracos Negros</string>
     <string name="btn_remover_buraco">Remover</string>
+    <string name="btn_adicionar_orbita">Adicionar Órbita</string>
+    <string name="btn_remover_orbita">Remover Órbita</string>
 
 
 </resources>

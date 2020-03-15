@@ -1,112 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textEscolha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/escolha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textEscolha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/escolha"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_planeta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/planeta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textEscolha" />
+
+        <Button
+            android:id="@+id/btn_sistema"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/sistema_planet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_planeta" />
+        <Button
+            android:id="@+id/btn_galaxia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/galaxia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_sistema" />
+
+        <Button
+            android:id="@+id/btn_satelite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/satelite_natural"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_galaxia" />
+
+        <Button
+            android:id="@+id/btn_estrela"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="@string/estrela"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_satelite" />
+
+        <Button
+            android:id="@+id/btn_sistemas_de_uma_galaxia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="Sistemas Planeários de uma Galáxia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_estrela" />
+
+        <Button
+            android:id="@+id/btn_buracos_negros"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/btn_lista_buraco_negro"
+            app:layout_constraintEnd_toEndOf="@+id/btn_sistemas_de_uma_galaxia"
+            app:layout_constraintStart_toStartOf="@+id/btn_sistemas_de_uma_galaxia"
+            app:layout_constraintTop_toBottomOf="@+id/btn_sistemas_de_uma_galaxia" />
 
     <Button
-        android:id="@+id/btn_planeta"
+        android:id="@+id/btn_planetas_sistema"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/planeta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEscolha" />
+        android:text="Planetas de Um Sistema"
+        app:layout_constraintEnd_toEndOf="@+id/btn_buracos_negros"
+        app:layout_constraintStart_toStartOf="@+id/btn_buracos_negros"
+        app:layout_constraintTop_toBottomOf="@+id/btn_buracos_negros" />
 
     <Button
-        android:id="@+id/btn_sistema"
+        android:id="@+id/btn_estrela_sistema"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/sistema_planet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_planeta" />
-    <Button
-        android:id="@+id/btn_galaxia"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/galaxia"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sistema" />
+        android:text="Estrelas de Um Sistema"
+        app:layout_constraintEnd_toEndOf="@+id/btn_planetas_sistema"
+        app:layout_constraintStart_toStartOf="@+id/btn_planetas_sistema"
+        app:layout_constraintTop_toBottomOf="@+id/btn_planetas_sistema" />
 
     <Button
-        android:id="@+id/btn_satelite"
+        android:id="@+id/btn_orbita_planeta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/satelite_natural"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_galaxia" />
+        android:text="Órbita de um Planeta"
+        app:layout_constraintEnd_toEndOf="@+id/btn_estrela_sistema"
+        app:layout_constraintStart_toStartOf="@+id/btn_estrela_sistema"
+        app:layout_constraintTop_toBottomOf="@+id/btn_estrela_sistema" />
 
     <Button
-        android:id="@+id/btn_estrela"
+        android:id="@+id/btn_orbita_estrela"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="@string/estrela"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_satelite" />
+        android:text="Órbita de uma Estrela"
+        app:layout_constraintEnd_toEndOf="@+id/btn_orbita_planeta"
+        app:layout_constraintStart_toStartOf="@+id/btn_orbita_planeta"
+        app:layout_constraintTop_toBottomOf="@+id/btn_orbita_planeta" />
 
     <Button
-        android:id="@+id/btn_sistemas_de_uma_galaxia"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="Sistemas Planeários de uma Galáxia"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_estrela" />
-
-    <Button
-        android:id="@+id/btn_buracos_negros"
+        android:id="@+id/btn_orbita_satelite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/btn_lista_buraco_negro"
-        app:layout_constraintEnd_toEndOf="@+id/btn_sistemas_de_uma_galaxia"
-        app:layout_constraintStart_toStartOf="@+id/btn_sistemas_de_uma_galaxia"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sistemas_de_uma_galaxia" />
+        android:text="Órbita de um Satélite Natural"
+        app:layout_constraintEnd_toEndOf="@+id/btn_orbita_estrela"
+        app:layout_constraintStart_toStartOf="@+id/btn_orbita_estrela"
+        app:layout_constraintTop_toBottomOf="@+id/btn_orbita_estrela" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

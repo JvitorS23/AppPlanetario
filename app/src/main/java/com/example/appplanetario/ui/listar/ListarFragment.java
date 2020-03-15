@@ -13,6 +13,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.appplanetario.ActListar;
 import com.example.appplanetario.ActListarBuracosNegros;
+import com.example.appplanetario.ActListarEstrelasDeSistema;
+import com.example.appplanetario.ActListarOrbitaEstrela;
+import com.example.appplanetario.ActListarOrbitaPlaneta;
+import com.example.appplanetario.ActListarOrbitaSatelite;
+import com.example.appplanetario.ActListarPlanetasDeSistema;
 import com.example.appplanetario.ActListarSistemasDeUmaGalaxia;
 import com.example.appplanetario.R;
 
@@ -24,6 +29,11 @@ public class ListarFragment extends Fragment {
     private Button btnEstrela;
     private Button btnSistemasDeUmaGalaxia;
     private Button btnBuracosNegros;
+    private Button btnPlanetaSistema;
+    private Button btnEstrelaSistema;
+    private Button btnOrbitaPlaneta;
+    private Button btnOrbitaSatelite;
+    private Button btnOrbitaEstrela;
 
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +142,77 @@ public class ListarFragment extends Fragment {
                 }
             }
         });
+
+        btnPlanetaSistema = root.findViewById(R.id.btn_planetas_sistema);
+        btnPlanetaSistema.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarPlanetasDeSistema.class);
+                    it.putExtra("tipo", "Planetas-Sistema");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnEstrelaSistema = root.findViewById(R.id.btn_estrela_sistema);
+        btnEstrelaSistema.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarEstrelasDeSistema.class);
+                    it.putExtra("tipo", "Buracos Negros");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnOrbitaPlaneta = root.findViewById(R.id.btn_orbita_planeta);
+        btnOrbitaPlaneta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarOrbitaPlaneta.class);
+                    it.putExtra("tipo", "Buracos Negros");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnOrbitaSatelite = root.findViewById(R.id.btn_orbita_satelite);
+        btnOrbitaSatelite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarOrbitaSatelite.class);
+                    it.putExtra("tipo", "Buracos Negros");
+                    startActivity(it);
+                }
+            }
+        });
+
+        btnOrbitaEstrela = root.findViewById(R.id.btn_orbita_estrela);
+        btnOrbitaEstrela.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity act = getActivity();
+
+                if (act != null) {
+                    Intent it = new Intent(act, ActListarOrbitaEstrela.class);
+                    it.putExtra("tipo", "Buracos Negros");
+                    startActivity(it);
+                }
+            }
+        });
+
 
         return root;
     }

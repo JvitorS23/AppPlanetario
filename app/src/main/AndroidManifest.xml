@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActRemoverOrbita"></activity>
+        <activity android:name=".ActListarOrbitaEstrela"></activity>
+        <activity android:name=".ActListarOrbitaSatelite" />
+        <activity android:name=".ActListarOrbitaPlaneta" />
+        <activity android:name=".ActListarEstrelasDeSistema" />
+        <activity android:name=".ActListarPlanetasDeSistema" />
+        <activity android:name=".ActRemoverOrbita" />
         <activity android:name=".ActAddOrbita" />
         <activity android:name=".ActRemoverPertence" />
         <activity android:name=".ActAddPertence" />
