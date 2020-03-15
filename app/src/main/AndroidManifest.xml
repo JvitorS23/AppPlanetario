@@ -11,11 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActBuracoNegro"></activity>
+        <activity android:name=".ActRemoverOrbita"></activity>
+        <activity android:name=".ActAddOrbita" />
+        <activity android:name=".ActRemoverPertence" />
+        <activity android:name=".ActAddPertence" />
+        <activity android:name=".ActBuracoNegro" />
         <activity android:name=".ActListarBuracosNegros" />
         <activity
             android:name=".ActListarSistemasDeUmaGalaxia"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ActSatelite"
             android:label="@string/title_activity_act_satelite"

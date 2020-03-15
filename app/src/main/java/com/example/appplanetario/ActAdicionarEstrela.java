@@ -116,7 +116,6 @@ public class ActAdicionarEstrela extends AppCompatActivity implements AddEstrela
                 radio_escolhido.setChecked(true);
             }
         }
-        System.out.println("BOTÃO ESCOLHIDO: " + ((RadioButton)findViewById(form_tipo.getCheckedRadioButtonId())).getText().toString());
     }
 
     public void clickBtnAdicionarEstrela(View view){
