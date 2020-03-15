@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.Act_Modificar;
 import com.example.appplanetario.R;
 
 public class ModificarFragment extends Fragment {

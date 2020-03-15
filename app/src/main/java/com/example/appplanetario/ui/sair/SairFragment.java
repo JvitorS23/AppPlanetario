@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import com.example.appplanetario.ActLogin;
+import com.example.appplanetario.ui.ActLogin;
 
 public class SairFragment extends Fragment {
 

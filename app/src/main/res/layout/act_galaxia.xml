@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout12"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActGalaxia">
+    tools:context=".ui.ActGalaxia">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"

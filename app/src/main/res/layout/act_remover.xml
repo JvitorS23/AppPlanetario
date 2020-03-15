@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActRemover">
+    tools:context=".ui.remover.ActRemover">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
