@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActListarSistemasDeUmaGalaxia">
+    tools:context=".ui.listar.ActListarSistemasDeUmaGalaxia">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,16 +26,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/lbl_id_galaxia"
+        android:id="@+id/lbl_id_sistema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="ID Galáxia"
-        app:layout_constraintStart_toStartOf="@+id/edt_id_galaxia"
+        app:layout_constraintStart_toStartOf="@+id/edt_id_sistema"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <EditText
-        android:id="@+id/edt_id_galaxia"
+        android:id="@+id/edt_id_sistema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -43,17 +43,17 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_buscar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_id_galaxia" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_id_sistema" />
 
     <ListView
-        android:id="@+id/lista_sistemas"
+        android:id="@+id/lista_planetas"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_id_galaxia" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_id_sistema" />
 
     <ImageButton
         android:id="@+id/btn_buscar"
@@ -62,8 +62,8 @@
         android:onClick="btnBusca"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/edt_id_galaxia"
-        app:layout_constraintTop_toTopOf="@+id/edt_id_galaxia"
+        app:layout_constraintStart_toEndOf="@+id/edt_id_sistema"
+        app:layout_constraintTop_toTopOf="@+id/edt_id_sistema"
         app:srcCompat="@drawable/ic_search_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 

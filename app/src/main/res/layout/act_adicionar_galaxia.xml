@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout8"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActAdicionarGalaxia">
+    tools:context=".ui.add.ActAdicionarGalaxia">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"

@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.ActRemover;
-import com.example.appplanetario.Act_Consulta;
 import com.example.appplanetario.R;
 
 
