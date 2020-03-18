@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActAdicionarEstrela">
+    tools:context=".ui.add.ActAdicionarEstrela">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -198,7 +198,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/btn_adicionar"
+                android:id="@+id/btn_remover_pertencimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

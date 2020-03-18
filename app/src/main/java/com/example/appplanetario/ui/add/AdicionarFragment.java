@@ -11,11 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.ActAdicionarEstrela;
-import com.example.appplanetario.ActAdicionarGalaxia;
-import com.example.appplanetario.ActAdicionarPlaneta;
-import com.example.appplanetario.ActAdicionarSatelite;
-import com.example.appplanetario.ActAdicionarSistema;
 import com.example.appplanetario.R;
 
 public class AdicionarFragment extends Fragment {

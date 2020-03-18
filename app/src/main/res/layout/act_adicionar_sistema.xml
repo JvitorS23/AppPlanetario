@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActAdicionarSistema">
+    tools:context=".ui.add.ActAdicionarSistema">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -136,7 +136,7 @@
 
 
             <Button
-                android:id="@+id/btn_adicionar"
+                android:id="@+id/btn_remover_pertencimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -146,7 +146,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_id_galaxia" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_id_sistema" />
 
             <Button
                 android:id="@+id/btn_modificar"
@@ -158,10 +158,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_id_galaxia" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_id_sistema" />
 
             <EditText
-                android:id="@+id/edt_id_galaxia"
+                android:id="@+id/edt_id_sistema"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -172,12 +172,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/edt_idade" />
 
             <TextView
-                android:id="@+id/lbl_id_galaxia"
+                android:id="@+id/lbl_id_sistema"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ID Galáxia"
-                app:layout_constraintBottom_toTopOf="@+id/edt_id_galaxia"
-                app:layout_constraintStart_toStartOf="@+id/edt_id_galaxia" />
+                app:layout_constraintBottom_toTopOf="@+id/edt_id_sistema"
+                app:layout_constraintStart_toStartOf="@+id/edt_id_sistema" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

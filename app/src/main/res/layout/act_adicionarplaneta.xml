@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActAdicionarPlaneta">
+    tools:context=".ui.add.ActAdicionarPlaneta">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -157,7 +157,7 @@
 
 
             <Button
-                android:id="@+id/btn_adicionar"
+                android:id="@+id/btn_remover_pertencimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"

@@ -11,98 +11,123 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActListarOrbitaEstrela"></activity>
-        <activity android:name=".ActListarOrbitaSatelite" />
-        <activity android:name=".ActListarOrbitaPlaneta" />
-        <activity android:name=".ActListarEstrelasDeSistema" />
-        <activity android:name=".ActListarPlanetasDeSistema" />
-        <activity android:name=".ActRemoverOrbita" />
-        <activity android:name=".ActAddOrbita" />
-        <activity android:name=".ActRemoverPertence" />
-        <activity android:name=".ActAddPertence" />
-        <activity android:name=".ActBuracoNegro" />
-        <activity android:name=".ActListarBuracosNegros" />
+        <activity android:name=".ui.listar.ActListarOrbitaEstrela"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.listar.ActListarOrbitaSatelite"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.listar.ActListarOrbitaPlaneta"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.listar.ActListarEstrelasDeSistema"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.listar.ActListarPlanetasDeSistema"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.remover.ActRemoverOrbita"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.add.ActAddOrbita"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.remover.ActRemoverPertence"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.add.ActAddPertence"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ActBuracoNegro"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.listar.ActListarBuracosNegros"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ActListarSistemasDeUmaGalaxia"
+            android:name=".ui.listar.ActListarSistemasDeUmaGalaxia"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActSatelite"
+            android:name=".ui.ActSatelite"
             android:label="@string/title_activity_act_satelite"
+
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActSistema"
+            android:name=".ui.ActSistema"
             android:label="@string/title_activity_act_sistema"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActGalaxia"
+            android:name=".ui.ActGalaxia"
             android:label="@string/title_activity_act_galaxia"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActEstrela"
+            android:name=".ui.ActEstrela"
             android:label="@string/title_activity_act_estrela"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActAdicionarEstrela"
+            android:name=".ui.add.ActAdicionarEstrela"
             android:label="@string/title_activity_act_adicionar_estrela"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActAdicionarSatelite"
+            android:name=".ui.add.ActAdicionarSatelite"
             android:label="@string/title_activity_act_adicionar_satelite"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActAdicionarSistema"
+            android:name=".ui.add.ActAdicionarSistema"
             android:label="@string/title_activity_act_adicionar_sistema"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActAdicionarGalaxia"
+            android:name=".ui.add.ActAdicionarGalaxia"
             android:label="@string/title_activity_act_adicionar_galaxia"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActRemover"
+            android:name=".ui.remover.ActRemover"
             android:label="@string/title_activity_act_remover"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActAdicionarPlaneta"
+            android:name=".ui.add.ActAdicionarPlaneta"
             android:label="@string/title_activity_act_adicionar"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActListar"
+            android:name=".ui.listar.ActListar"
             android:label="@string/title_activity_act_listar"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Act_Modificar"
+            android:name=".ui.modificar.Act_Modificar"
             android:label="Modificar"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActPlaneta"
+            android:name=".ui.ActPlaneta"
             android:label="@string/title_activity_act_planeta"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Act_Consulta"
+            android:name=".ui.consultar.Act_Consulta"
             android:label="@string/title_activity_act__consulta"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Act_Inicio"
+            android:name=".ui.Act_Inicio"
             android:label="@string/title_activity_act__inicio"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActCad"
+            android:name=".ui.ActCad"
             android:label="@string/title_activity_act_cad"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActLogin"
+            android:name=".ui.ActLogin"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

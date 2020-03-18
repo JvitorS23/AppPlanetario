@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActPlaneta">
+    tools:context=".ui.ActPlaneta">
 
 
     <com.google.android.material.appbar.AppBarLayout

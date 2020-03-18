@@ -11,14 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.ActListar;
-import com.example.appplanetario.ActListarBuracosNegros;
-import com.example.appplanetario.ActListarEstrelasDeSistema;
-import com.example.appplanetario.ActListarOrbitaEstrela;
-import com.example.appplanetario.ActListarOrbitaPlaneta;
-import com.example.appplanetario.ActListarOrbitaSatelite;
-import com.example.appplanetario.ActListarPlanetasDeSistema;
-import com.example.appplanetario.ActListarSistemasDeUmaGalaxia;
 import com.example.appplanetario.R;
 
 public class ListarFragment extends Fragment {
@@ -150,7 +142,7 @@ public class ListarFragment extends Fragment {
                 FragmentActivity act = getActivity();
 
                 if (act != null) {
-                    Intent it = new Intent(act, ActListarPlanetasDeSistema.class);
+                    Intent it = new Intent(act, com.example.appplanetario.ui.listar.ActListarPlanetasDeSistema.class);
                     it.putExtra("tipo", "Planetas-Sistema");
                     startActivity(it);
                 }

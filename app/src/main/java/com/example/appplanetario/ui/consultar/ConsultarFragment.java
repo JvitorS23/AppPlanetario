@@ -6,15 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.example.appplanetario.ActLogin;
-import com.example.appplanetario.Act_Consulta;
-import com.example.appplanetario.Act_Inicio;
 import com.example.appplanetario.R;
 
 public class ConsultarFragment extends Fragment {
