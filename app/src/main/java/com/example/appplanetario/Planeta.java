@@ -10,6 +10,7 @@ public class Planeta extends Entidade implements Serializable {
    public float gravidade;
    public float vel_rotacao;
    public String[] composicao;
+   public boolean possui_sn;
 
 
     public Planeta(int id, String nome) {
@@ -24,8 +25,6 @@ public class Planeta extends Entidade implements Serializable {
         this.gravidade = gravidade_planeta;
         this.composicao = comp_planeta;
         this.vel_rotacao = vel_rotacao;
-
-
     }
 
     public float getPeso() {

@@ -12,15 +12,22 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appplanetario.SateliteNatural;
 import com.example.appplanetario.banco.AddPlanetaBackground;
 import com.example.appplanetario.banco.ModPlanetaBackground;
 import com.example.appplanetario.Planeta;
 import com.example.appplanetario.R;
+import com.example.appplanetario.banco.OrbitaBackground;
 import com.example.appplanetario.ui.Act_Inicio;
 
-public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener, ModPlanetaBackground.OnModPlanetaCompletedListener {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlanetaBackground.OnAddPlanetaCompletedListener, ModPlanetaBackground.OnModPlanetaCompletedListener, OrbitaBackground.OnOrbitaCompletedListener {
 
     private String operacao;
     private Button btn;
@@ -32,6 +39,7 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
     private EditText form_composicao;
     private EditText form_velocidade;
     private Planeta planeta;
+    private TextView txt_mensagem;
 
 
     @Override
@@ -60,11 +68,13 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
         form_gravidade = findViewById(R.id.edt_gravidade);
         form_composicao = findViewById(R.id.edt_composicao);
         form_velocidade = findViewById(R.id.edt_vel_rotacao);
+        txt_mensagem = findViewById(R.id.txt_mensagem);
 
         if(operacao.equals("Adicionar")){
             findViewById(R.id.btn_modificar).setVisibility(View.INVISIBLE);
             btn = (Button)findViewById(R.id.btn_remover_pertencimento);
             btn.setVisibility(View.VISIBLE);
+            txt_mensagem.setVisibility(View.INVISIBLE);
         }
         if(operacao.equals("Modificar")){
             findViewById(R.id.btn_remover_pertencimento).setVisibility(View.INVISIBLE);
@@ -83,6 +93,10 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
                 compos = compos +planeta.composicao[i]+", ";
             }
             form_composicao.setText(compos);
+
+            OrbitaBackground orbitaBackground = new OrbitaBackground(this, "Consultar-Possui-Satelite");
+            orbitaBackground.setOnOrbitaCompletedListener(ActAdicionarPlaneta.this);
+            orbitaBackground.execute(String.valueOf(planeta.getId()));
         }
 
     }
@@ -235,6 +249,41 @@ public class ActAdicionarPlaneta extends AppCompatActivity implements AddPlaneta
                 }
             });
             dlg.show();
+        }
+    }
+
+    @Override
+    public void onOrbitaCompleted(String result, ResultSet resultado) {
+        if(result.equals("ERRO-CONEXAO")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha na conexão!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+        if(result.equals("ERRO-CONSULTA")){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro!");
+            dlg.setMessage("Falha ao consultar satélites desse planeta!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+        }
+
+        if(result.equals("OK")) {
+            try{
+                while(true){
+                    if(resultado.next()){
+                        txt_mensagem.setText("Este planeta possui satélite natural");
+                        break;
+                    }else{
+                        txt_mensagem.setText("Este planeta não possui satélite natural");
+                        break;
+                    }
+                }
+            }catch (SQLException e){
+                System.out.println("EXCEPTION7");
+                e.printStackTrace();
+            }
         }
     }
 }

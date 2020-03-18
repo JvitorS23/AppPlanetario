@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appplanetario.banco.OrbitaBackground;
 import com.example.appplanetario.ui.ActEstrela;
 import com.example.appplanetario.ui.ActGalaxia;
 import com.example.appplanetario.ui.ActPlaneta;
@@ -33,6 +34,7 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
     private TextView txtID;
     private EditText edtId;
     public String tipo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,9 +224,6 @@ public class Act_Consulta extends AppCompatActivity implements ConsultaAstrosBac
                     startActivity(it5);
                     break;
             }
-
-
-
         }
     }
 }

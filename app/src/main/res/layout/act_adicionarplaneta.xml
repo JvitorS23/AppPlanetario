@@ -160,27 +160,26 @@
                 android:id="@+id/btn_remover_pertencimento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp"
                 android:onClick="clickBtnAdicionarPlaneta"
                 android:text="@string/adicionar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_vel_rotacao" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_mensagem" />
 
             <Button
                 android:id="@+id/btn_modificar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="16dp"
                 android:onClick="clickBtnModificarPlaneta"
                 android:text="@string/modificar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edt_vel_rotacao" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_mensagem" />
 
             <EditText
                 android:id="@+id/edt_vel_rotacao"
@@ -200,6 +199,16 @@
                 android:text="Velocidade de Rotação"
                 app:layout_constraintBottom_toTopOf="@+id/edt_vel_rotacao"
                 app:layout_constraintStart_toStartOf="@+id/edt_vel_rotacao" />
+
+            <TextView
+                android:id="@+id/txt_mensagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="@+id/edt_vel_rotacao"
+                app:layout_constraintStart_toStartOf="@+id/edt_vel_rotacao"
+                app:layout_constraintTop_toBottomOf="@+id/edt_vel_rotacao" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

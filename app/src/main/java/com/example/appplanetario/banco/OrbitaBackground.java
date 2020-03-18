@@ -37,7 +37,11 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         mDialog = new ProgressDialog(mContext);
-        mDialog.setMessage("Realizando relacionamento...");
+        if(opcao.equals("Consultar-Possui-Satelite")){
+            mDialog.setMessage("Verificando...");
+        }else{
+            mDialog.setMessage("Realizando relacionamento...");
+        }
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
     }
@@ -72,6 +76,13 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                         "ON(orb.id_planeta = pl.id_planeta) " +
                       "WHERE orb.id_estrela = ?";
                 break;
+            case "Consultar-Possui-Satelite":
+                sql = "SELECT DISTINCT orb.id_sn, sn.nome_sn, sn.comp_sn, sn.tam_sn, sn.peso_sn " +
+                        "FROM astros.orbita orb JOIN astros.planeta pl " +
+                        "ON(orb.id_planeta = pl.id_planeta) JOIN astros.satelite_natural sn " +
+                        "ON(orb.id_sn = sn.id_sn) " +
+                        "WHERE orb.id_planeta = ?";
+                break;
         }
 
         PreparedStatement ps = null;
@@ -101,6 +112,9 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                 case "Consultar-Orbita-Estrela":
                     ps.setInt(1, Integer.parseInt(result[0]));//id da estrela que quero saber quais pl que a orbita;
                     break;
+                case "Consultar-Possui-Satelite":
+                    ps.setInt(1, Integer.parseInt(result[0]));
+                    break;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,6 +127,8 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                 case "Consultar-Orbita-Planeta":
                     return "ERRO-CONSULTA";
                 case "Consultar-Orbita-Estrela":
+                    return "ERRO-CONSULTA";
+                case "Consultar-Possui-Satelite":
                     return "ERRO-CONSULTA";
             }
 
@@ -136,6 +152,9 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                 case "Consultar-Orbita-Estrela":
                     this.consulta = ps.executeQuery();
                     break;
+                case "Consultar-Possui-Satelite":
+                    this.consulta = ps.executeQuery();
+                    break;
             }
         }catch (SQLException e){
             System.out.println("EXCEPTION3");
@@ -148,6 +167,8 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                 case "Consultar-Orbita-Planeta":
                     return "ERRO-CONSULTA";
                 case "Consultar-Orbita-Estrela":
+                    return "ERRO-CONSULTA";
+                case "Consultar-Possui-Satelite":
                     return "ERRO-CONSULTA";
             }
         }
