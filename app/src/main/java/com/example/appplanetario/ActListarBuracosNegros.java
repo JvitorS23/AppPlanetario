@@ -51,7 +51,6 @@ public class ActListarBuracosNegros extends AppCompatActivity implements  Listar
         lista_buracos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO Fazer tela da estrela que é buraco negro
                 Intent it = new Intent(ActListarBuracosNegros.this, ActBuracoNegro.class);
                 it.putExtra("buraco", buracos.get(position));
                 startActivity(it);
