@@ -30,19 +30,6 @@ public class ActListarBuracosNegros extends AppCompatActivity implements  Listar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_listar_buracos_negros);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow);
-//        tipo = "Entidade";
-//        tipo = (String) getIntent().getSerializableExtra("tipo");
-//        toolbar.setTitle("Listar " + tipo);
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-
         lista_buracos = (ListView) findViewById(R.id.lista_buracos);
 
         buracos = new ArrayList<Estrela>();

@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ActListarOrbitaEstrela">
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="ID da Estrela"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtIdEstrelaToOrbita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <ImageButton
+        android:id="@+id/btnBuscaOrbitaEstrela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="buscaOrbitaEstrela"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edtIdEstrelaToOrbita"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:srcCompat="@drawable/ic_search_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ListView
+        android:id="@+id/lista_orbita_estrela"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtIdEstrelaToOrbita" />
 </androidx.constraintlayout.widget.ConstraintLayout>

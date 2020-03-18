@@ -66,13 +66,15 @@ public class Planeta extends Entidade implements Serializable {
 
     @Override
     public String toString() {
-        return "Planeta{" +
-                "tamanho=" + tamanho +
-                ", peso=" + peso +
-                ", gravidade=" + gravidade +
-                ", vel_rotacao=" + vel_rotacao +
-                ", composicao=" + Arrays.toString(composicao) +
-                '}';
+        return "ID = " + id +
+            "\n Nome = " + nome;
+//        return "Planeta{" +
+//                "tamanho=" + tamanho +
+//                ", peso=" + peso +
+//                ", gravidade=" + gravidade +
+//                ", vel_rotacao=" + vel_rotacao +
+//                ", composicao=" + Arrays.toString(composicao) +
+//                '}';
     }
 
     public void setComposicao(String[] composicao) {

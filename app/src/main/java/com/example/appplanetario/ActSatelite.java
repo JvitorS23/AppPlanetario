@@ -62,16 +62,26 @@ public class ActSatelite extends AppCompatActivity implements RemoverAstrosBackg
         txtTamanho.setText("Tamanho: "+String.valueOf(satelite.getTamanho()));
         String compos = "";
         for(int i=0; i<satelite.composicao.length; i++){
-            compos = compos + " "+satelite.composicao[i];
+            if(operacao.equals("Listar")){
+                if(i == 0){
+                    compos = compos + " "+satelite.composicao[i];
+                }else{
+                    compos = compos + ", "+satelite.composicao[i];
+                }
+            }else{
+                compos = compos + " "+satelite.composicao[i];
+            }
         }
         txtComposicao.setText("Composição:"+compos);
 
         if(operacao.equals("Consultar")){
             btn.setVisibility(View.INVISIBLE);
-
         }
         if(operacao.equals("Remover")){
             btn.setVisibility(View.VISIBLE);
+        }
+        if(operacao.equals("Listar")){
+            btn.setVisibility(View.INVISIBLE);
         }
     }
 

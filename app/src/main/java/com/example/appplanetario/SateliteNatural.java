@@ -44,4 +44,10 @@ public class SateliteNatural extends  Entidade implements Serializable {
     public void setPeso(float peso) {
         this.peso = peso;
     }
+
+    @Override
+    public String toString() {
+        return  "ID = " + id +
+                "\nNome = " + nome;
+    }
 }

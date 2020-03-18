@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.sql.ResultSet;
+
 public class ActAddOrbita extends AppCompatActivity implements  OrbitaBackground.OnOrbitaCompletedListener{
 
     private EditText edt_id_planeta_orb;
@@ -83,7 +85,7 @@ public class ActAddOrbita extends AppCompatActivity implements  OrbitaBackground
     }
 
     @Override
-    public void onOrbitaCompleted(String result) {
+    public void onOrbitaCompleted(String result, ResultSet resultSet) {
         if(result.equals("ERRO-CONEXAO")){
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Erro!");

@@ -13,13 +13,14 @@ import java.sql.SQLException;
 public class OrbitaBackground extends AsyncTask<String, Void, String> {
 
     public interface OnOrbitaCompletedListener{
-        void onOrbitaCompleted(String result);
+        void onOrbitaCompleted(String result, ResultSet resultado);
     }
 
     public static Connection con;//conexão com o banco
     public Context mContext;//activity que chama
     public ProgressDialog mDialog;//load
     public String opcao;
+    public ResultSet consulta;
 
     private OnOrbitaCompletedListener onOrbitaCompletedListener;
 
@@ -57,6 +58,20 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
             case "Remover":
                 sql = "DELETE FROM astros.orbita WHERE id_planeta = ? AND id_sn = ? AND id_estrela = ?";
                 break;
+            case "Consultar-Orbita-Planeta":
+                sql = "SELECT DISTINCT orb.id_sn, sn.nome_sn, sn.comp_sn, sn.tam_sn, sn.peso_sn " +
+                      "FROM astros.orbita orb JOIN astros.planeta pl " +
+                          "ON(orb.id_planeta = pl.id_planeta) JOIN astros.satelite_natural sn " +
+                          "ON(orb.id_sn = sn.id_sn) " +
+                      "WHERE orb.id_planeta = ?";
+                break;
+            case "Consultar-Orbita-Estrela":
+                sql = "SELECT DISTINCT orb.id_planeta, pl.nome_planeta, pl.tam_planeta, pl.peso_planeta, pl.vel_rotacao, pl.gravidade_planeta, pl.comp_planeta " +
+                      "FROM astros.orbita orb JOIN astros.estrela es " +
+                        "ON(orb.id_estrela = es.id_estrela) JOIN astros.planeta pl " +
+                        "ON(orb.id_planeta = pl.id_planeta) " +
+                      "WHERE orb.id_estrela = ?";
+                break;
         }
 
         PreparedStatement ps = null;
@@ -64,6 +79,7 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
             ps = con.prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("EXCEPTION1");
             return "ERRO-CONEXAO";
         }
 
@@ -79,28 +95,60 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                     ps.setInt(2, Integer.parseInt(result[1]));//satélite natural
                     ps.setInt(3, Integer.parseInt(result[2]));//estrela
                     break;
+                case "Consultar-Orbita-Planeta":
+                    ps.setInt(1, Integer.parseInt(result[0]));//id do planeta que quero saber quais os sn que o orbita
+                    break;
+                case "Consultar-Orbita-Estrela":
+                    ps.setInt(1, Integer.parseInt(result[0]));//id da estrela que quero saber quais pl que a orbita;
+                    break;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("EXCEPTION2");
             switch (opcao){
                 case "Adicionar":
                     return "ERRO-INSERCAO";
                 case "Remover":
                     return "ERRO-REMOCAO";
+                case "Consultar-Orbita-Planeta":
+                    return "ERRO-CONSULTA";
+                case "Consultar-Orbita-Estrela":
+                    return "ERRO-CONSULTA";
             }
 
         }
 
+
         String resultado = "OK";
         try{
-            ps.execute();
+            switch (opcao){
+                case "Adicionar":
+                    this.consulta = null;
+                    ps.execute();
+                    break;
+                case "Remover":
+                    this.consulta = null;
+                    ps.execute();
+                    break;
+                case "Consultar-Orbita-Planeta":
+                    this.consulta = ps.executeQuery();
+                    break;
+                case "Consultar-Orbita-Estrela":
+                    this.consulta = ps.executeQuery();
+                    break;
+            }
         }catch (SQLException e){
+            System.out.println("EXCEPTION3");
             e.printStackTrace();
             switch (opcao){
                 case "Adicionar":
                     return "ERRO-INSERCAO";
                 case "Remover":
                     return "ERRO-REMOCAO";
+                case "Consultar-Orbita-Planeta":
+                    return "ERRO-CONSULTA";
+                case "Consultar-Orbita-Estrela":
+                    return "ERRO-CONSULTA";
             }
         }
 
@@ -109,6 +157,7 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
                 this.con.close();
             }
         } catch (SQLException e) {
+            System.out.println("EXCEPTION4");
             e.printStackTrace();
         }
         return resultado;
@@ -120,7 +169,7 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
         mDialog.dismiss();
         if(onOrbitaCompletedListener != null){
             //Chama o listener passando a string
-            onOrbitaCompletedListener.onOrbitaCompleted(str);
+            onOrbitaCompletedListener.onOrbitaCompleted(str, this.consulta);
         }
     }
 
@@ -136,10 +185,12 @@ public class OrbitaBackground extends AsyncTask<String, Void, String> {
             /** Retorna um erro caso nao encontre o driver, ou alguma informacao sobre o mesmo esteja errada */
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Erro ao conectar o driver");
+            System.out.println("EXCEPTION5");
             cnfe.printStackTrace();
         } catch (SQLException e) {
             if(this.con==null)
                 return false;
+            System.out.println("EXCEPTION6");
             e.printStackTrace();
         }
         return true;

@@ -185,20 +185,6 @@ public class ListarFragment extends Fragment {
             }
         });
 
-        btnOrbitaSatelite = root.findViewById(R.id.btn_orbita_satelite);
-        btnOrbitaSatelite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentActivity act = getActivity();
-
-                if (act != null) {
-                    Intent it = new Intent(act, ActListarOrbitaSatelite.class);
-                    it.putExtra("tipo", "Buracos Negros");
-                    startActivity(it);
-                }
-            }
-        });
-
         btnOrbitaEstrela = root.findViewById(R.id.btn_orbita_estrela);
         btnOrbitaEstrela.setOnClickListener(new View.OnClickListener() {
             @Override

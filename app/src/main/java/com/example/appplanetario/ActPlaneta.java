@@ -73,7 +73,15 @@ public class ActPlaneta extends AppCompatActivity implements RemoverAstrosBackgr
 
         String compos = "";
         for(int i=0; i<planeta.composicao.length; i++){
-            compos = compos + " "+planeta.composicao[i];
+            if(operacao.equals("Listar")){
+                if(i == 0){
+                    compos = compos + " "+planeta.composicao[i];
+                }else{
+                    compos = compos + ", "+planeta.composicao[i];
+                }
+            }else{//Esse else apenas server para deixar como antes, caso alguma outra classe use essa linhas abaixo
+                compos = compos + " "+planeta.composicao[i];
+            }
         }
         txtComposicao.setText("Composição:"+compos);
 
@@ -85,6 +93,10 @@ public class ActPlaneta extends AppCompatActivity implements RemoverAstrosBackgr
         if(operacao.equals("Remover")){
            btn.setVisibility(View.VISIBLE);
 
+        }
+
+        if(operacao.equals("Listar")){
+            btn.setVisibility(View.INVISIBLE);
         }
 
     }
