@@ -2,6 +2,7 @@ package com.example.appplanetario.ui.listar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,17 @@ public class ActListarOrbitaPlaneta extends AppCompatActivity implements OrbitaB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_listar_orbita_planeta);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow);
+        toolbar.setTitle("Listar Órbita de um Planeta");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lista_sn = (ListView) findViewById(R.id.lista_orbita_planeta);
         edtIdPlaneta = (EditText) findViewById(R.id.edtIdPlanetaToOrbita);
