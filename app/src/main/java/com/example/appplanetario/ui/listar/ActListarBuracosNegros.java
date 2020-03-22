@@ -2,6 +2,7 @@ package com.example.appplanetario.ui.listar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,17 @@ public class ActListarBuracosNegros extends AppCompatActivity implements ListarB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_listar_buracos_negros);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow);
+        toolbar.setTitle("Listar Buracos Negros");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         lista_buracos = (ListView) findViewById(R.id.lista_buracos);
 
